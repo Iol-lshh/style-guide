@@ -55,7 +55,7 @@
 
 ```javascript
 const nowDay = new Date();
-const userName = '김완수';
+const userName = 'ㅇㅇㅇ';
 ```
 - 첫 문자를 대문자로 시작하여, 의미 구분을 위해 대문자를 사용한다.
 
