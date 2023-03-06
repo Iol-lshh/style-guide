@@ -1,5 +1,5 @@
 
-> [Home](./README.md)
+> [Home](/README.md)
 
 - [3. 변수 및 함수 명명 규칙](#3-변수-및-함수-명명-규칙)
   - [3.1. 변수 명명 규칙](#31-변수-명명-규칙)
@@ -40,12 +40,17 @@
         - [3.4.5.4.1 default 매개변수](#34541-default-매개변수)
         - [3.4.5.4.2 구조분해 할당](#34542-구조분해-할당)
         - [3.4.5.4.3 나머지 매개변수 (...)](#34543-나머지-매개변수)
-      - [3.4.6 비동기](#346-비동기)
-        - [3.4.6.1 then](#3461-then)
-        - [3.4.6.2 async await](#3462-async-await)
-        - [3.4.6.3 쓰로틀링과 디바운스](#3463-쓰로틀링과-디바운스)
-          - [3.4.6.3.1 디바운스 처리(Debouncing)](#34631-디바운스-처리debouncing)
-          - [3.4.6.3.2 쓰로틀링 처리(Throttling)](#34632-쓰로틀링-처리throttling)
+    - [3.4.6 비동기](#346-비동기)
+      - [3.4.6.1 프로미스 처리: 체이닝 함수 then](#3461-프로미스-처리-체이닝-함수-then)
+      - [3.4.6.2 async await](#3462-async-await)
+      - [3.4.6.3 중첩된 비동기 처리](#3463-중첩된-비동기-처리)
+        - [3.4.6.3.1 for ... of ... 순서대로 비동기 처리](#34631-for--of--순서대로-비동기-처리)
+        - [3.4.6.3.2 reduce 함수](#34632-reduce-함수)
+        - [3.4.6.3.3 Promise.all( ) 비동기 처리](#34633-promiseall--비동기-처리)
+
+      - [3.4.6.4 쓰로틀링과 디바운스 처리](#3464-쓰로틀링과-디바운스-처리)
+        - [3.4.6.4.1 디바운스(Debouncing)](#34641-디바운스debouncing)
+        - [3.4.6.4.2 쓰로틀링(Throttling)](#34642-쓰로틀링throttling)
 
 
 
@@ -55,7 +60,7 @@
 
 ```javascript
 const nowDay = new Date();
-const userName = 'ㅇㅇㅇ';
+const userName = '김완수';
 ```
 - 첫 문자를 대문자로 시작하여, 의미 구분을 위해 대문자를 사용한다.
 
@@ -93,7 +98,7 @@ for(let idx in fooArr){
 - 변수들의 선언을, 사용되는 로직과 가까이하여, 쉐도잉을 방지한다.
 - `var` 사용을 지양한다.
 - 함수 선언시, `const`로 정의한 변수에 할당시켜 사용한다.  
-
+---
 ### 3.4.2 불변성
 - 모든 객체는 불변성 유지를 지향한다.
 - 원본 데이터의 객체는, 다시 새 데이터를 입력받아서만 수정한다.
@@ -133,6 +138,8 @@ foo.barArr = [...foo.barArr, 5];
 foo.barArr = [...foo.barArr.pop()];
 ```
 
+
+---
 ### 3.4.3 Null 유효성 관리
 - null과 undefined 관리를 지향한다.
 - 논리OR(`||`) 와 널병합연산자(`??`)를 적절한 곳에 사용한다.
@@ -168,6 +175,7 @@ console.log(adventurer.someNonExistentMethod?.()); // undefined
 [참조: MDN Optional chaining](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/Optional_chaining)
 
 
+---
 ### 3.4.4 객체
 - 프로토타입(`__proto__`) 활용을 추천하지 않는다.
 
@@ -221,6 +229,7 @@ const obj = {
 ```
 
 
+---
 ### 3.4.5 함수
 - JavaScript 함수는 다음과 같다.
   - 일반 function
@@ -302,6 +311,7 @@ const bar = () => {
 }
 ```
 
+
 #### 3.4.5.3 책임 분리
 - 책임에 따라 적확하게 작명한다.
 - 콜스택이 쌓이더라도, 하나의 함수는 하나의 동작만 하는 것을 추천한다.
@@ -362,7 +372,7 @@ const members = ['철수', '영희', '짱구', '훈이']
 foo(...members); // 전개 연산자
 ```
 
-
+---
 ### 3.4.6 비동기
 - 콜백 방식 부정적
   - 콜백 지옥 우려
@@ -371,13 +381,170 @@ foo(...members); // 전개 연산자
   2. async await
 - 쿼리 요청(트래픽)을 줄이고자, 쓰로틀링과 디바운스 처리를 지향한다.
 
-#### 3.4.6.1 then
+#### 3.4.6.1 프로미스 처리: 체이닝 함수 `then`
 - 세부적인 프로미스 처리가 가능하다.
+- async await 방식을 좀 더 추천
+  - then을 통해 코드의 들여쓰기가 많아지면, 가독성이 저해된다.
+  - catch 구문이 많아지면, 가독성이 저해된다.
+
+```javascript
+const axios = require('axios');
+
+const Test1ApiCall = () {
+  axios
+    .get('/user?ID=12345')
+    // 응답(성공)
+    .then(function(response) {
+      console.log("Response >>", response.data)
+    })
+    // 응답(실패)
+    .catch(function(error) {
+      console.log("Error >>", error);
+    })
+    // 응답(항상 실행)
+    .then(function() {
+      // ...
+    });
+};
+
+// then 을 연속적으로 호출하는 예시
+// 복잡하다.. => async await 추천
+const Test2ApiCall = () {
+  // axios 요청1
+  axios
+    .get('https://test.com/api/v1')
+    .then((response) => {
+      const data = response.data;
+      const userId = data.userId;
+      // axios 요청2
+      axios
+        .get('https://test2.com/api/v2/' + userId)
+        .then((response) => {
+          console.log("Response >>", response.data)
+        })
+        .catch(() => {
+          console.log("Error >>", err);
+        })
+    })
+    .catch((error) => {
+      console.log("Error >>", err);
+    });
+};
+```
+
 #### 3.4.6.2 async await
 - try catch와 같이 사용이 용이하다.
 
-#### 3.4.6.3 쓰로틀링과 디바운스 처리
-##### 3.4.6.3.1 디바운스(Debouncing)
+```javascript
+// async/await 를 활용하는 수정된 방식
+const Test2ApiCall = async () {
+  console.log(2);
+  try {
+    // axios 요청1
+    const response = await axios.get('https://test.com/api/v1')
+    console.log(7);
+    const userId = response.data.userId;
+    // axios 요청2
+    const response2 = await axios.get('https://test2.com/api/v2/' + userId);
+    console.log(8);
+    console.log("Response >>", response2.data)
+  } catch(err) {
+    console.log("Error >>", err);
+  } finally {
+    	console.log('끝');
+  }
+}
+
+console.log(1);
+Test2ApiCall();
+console.log(3);
+console.log(4);
+console.log(5);
+console.log(6);
+// 출력 순서
+// 1
+// 2
+// 3
+// 4
+// 5
+// 6
+// 7
+// 8
+// Response >> ~  or  Error >> ~ 
+```
+- 비동기 처리시, await을 만나는 순간, async 함수 바깥의 콜스택을 처리한다는 점을 주의
+
+#### 3.4.6.3 중첩된 비동기 처리
+```javascript
+// 잘못된 예
+import fs from 'fs-promise';
+
+async function printFiles () {
+  const files = await getFilePaths(); // Assume this works fine
+
+  files.forEach(async (file) => {
+    const contents = await fs.readFile(file, 'utf8');
+    console.log(contents);
+  });
+}
+
+printFiles();
+// 작동하지만, printFiles가 비동기를 한번에 실행, 기다리지 않고 바로 리턴
+```
+
+- 바벨은 async/await를 generator 함수로 변환하는데, forEach를 쓰면 각각의 이터레이션이 개별 generator 함수를 갖게 된다. 
+  - next( ) 컨텍스트가 아니다.
+
+
+##### 3.4.6.3.1 `for ... of ...` 순서대로 비동기 처리
+```javascript
+async function printFiles () {
+  const files = await getFilePaths();
+
+  for (const file of files) {
+    const contents = await fs.readFile(file, 'utf8');
+    console.log(contents);
+  }
+}
+```
+
+##### 3.4.6.3.2 `reduce` 함수
+- 순서를 보장하는 reduce를 사용
+  - map, filter는 순서를 보장하지 않는다.
+```javascript
+async function printFiles () {
+  const files = await getFilePaths();
+
+  await files.reduce(async (promise, file) => {
+    await promise; // 이전 프로미스들의 resolve를 기다린다.
+    const contents = await fs.readFile(file, 'utf8');
+    console.log(contents);
+  }, Promise.resolve());
+}
+```
+
+##### 3.4.6.3.3 `Promise.all( )` 비동기 처리
+- map은 새 배열을 반환하기 때문에,
+  - 매개변수로 배열을 받는 Promise.all 안에 배열을 매핑한다.
+  - 같은 이유로 forEach는 안된다. 리턴값을 기다리지 않기 때문이다.
+```javascript
+async function printFiles () {
+  const files = await getFilePaths();
+
+  await Promise.all(files.map(async (file) => {
+    const contents = await fs.readFile(file, 'utf8')
+    console.log(contents)
+  }));
+}
+```
+
+- 참조
+- [stackoverflow: Using async/await with a forEach loop](stackoverflow.com/questions/37576685/using-async-await-with-a-foreach-loop)
+- [Handling Nested Promises Using Async/Await in React](www.pluralsight.com/guides/handling-nested-promises-using-asyncawait-in-react)
+
+
+#### 3.4.6.4 쓰로틀링과 디바운스 처리
+##### 3.4.6.4.1 디바운스(Debouncing)
   - 일정 시간동안 대기, 대기 중 함수가 호출된다면, 대기 시간 초기화
   - Ex) 단어 검색 자동 조회
 ```javascript
@@ -392,7 +559,7 @@ document.querySelector('#input').addEventListener('input', function(e) {
 });
 ```
 
-##### 3.4.6.3.2 쓰로틀링(Throttling)
+##### 3.4.6.4.2 쓰로틀링(Throttling)
   - 마지막 실행후, 일정 시간까지 대기 
   - Ex) 스크롤 다운 추가 조회
 ```javascript
