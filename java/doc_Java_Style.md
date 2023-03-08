@@ -1,4 +1,50 @@
+> [Home](/README.md)
+
 Java 스타일 가이드
+- [1. 변수 명명 규칙](#1-변수-명명-규칙)
+- [2. 함수 명명 규칙](#2-함수-명명-규칙)
+- [3. 문법](#3-문법)
+    - [3.0 Java 기초](#30-java-기초)
+        - [3.0.1 OOP 특징](#301-oop-특징)
+        - [3.0.2 OOP 설계 5원칙 SOLID](#302-oop-설계-5원칙-solid)
+        - [3.0.3 타입](#303-타입)
+            - [3.0.3.1 Call by Value](#3031-call-by-value)
+            - [3.0.3.2 Call by Reference](#3032-call-by-reference)
+            - [3.0.3.3 String](#3033-string)
+            - [3.0.3.4 연산된 값](#3034-연산된-값)
+        - [3.0.4 접근자](#304-접근자)
+        - [3.0.5 OOP](#305-인터페이스-클래스-인스턴스)
+    - [3.1 동작 파라미터](#31-동작-파라미터)
+        - [3.1.0 메서드](#310-메서드)
+            - [3.1.0.1 메서드 시그니처](#3101-메서드-시그니처)
+            - [3.1.0.2 메서드 오버로딩](#3102-메서드-오버로딩)
+        - [3.1.1 함수형 인터페이스와 구현 클래스](#311-함수형-인터페이스와-구현-클래스)
+            - [3.1.1.1 추상적 조건으로 필터링](#3111-추상적-조건으로-필터링)
+            - [3.1.1.2 익명 클래스](#3112-익명-클래스)
+        - [3.1.2 람다](#312-람다)
+        - [3.1.3 제네릭 Generic](#313-제네릭-generic)
+        - [3.1.4 함수 디스크립터](#314-함수-디스크립터)
+            - [3.1.4.1 기본 제공 함수형 인터페이스 (자바8)](#3141-기본-제공-함수형-인터페이스-자바8)
+        - [3.1.5 메서드 참조 `::`](#315-메서드-참조)
+        - [3.1.6 생성자 참조](#316-생성자-참조)
+    - [3.2 컬렉션](#32-컬렉션)
+        - [3.2.1 상속 관계](#321-상속-관계)
+            - [3.2.1.1 List](#3211-list)
+                - [3.2.1.1.1 Stack](#32111-stack)
+                - [3.2.1.1.2 Vector](#32112-vector)
+                - [3.2.1.1.3 ArrayList](#32113-arraylist)
+            - [3.2.1.2 Set](#3212-set)
+                - [3.2.1.2.1 HashSet](#32121-hashset)
+            - [3.2.1.3 Map](#3213-map)
+                - [3.2.1.3.1 Hashtable](#32131-hashtable)
+                - [3.2.1.3.2 HashMap](#32132-hashmap)
+        - [3.2.2 Sorted](#322-sorted)
+            - [3.2.2.1 Comparator](#3221-comparator)
+        - [3.2.3 Comparable](#323-comparable)
+    - [3.3 스트림](#33-스트림)
+
+
+
 
 # 1. 변수 명명 규칙
 
@@ -6,14 +52,14 @@ Java 스타일 가이드
 
 # 3. 문법
 
-## 3.0. Java 기초
-## 3.0.1. OOP 특징
+## 3.0 Java 기초
+### 3.0.1 OOP 특징
 1. 캡슐화
 2. 추상화 
 3. 상속
 4. 다형성
 
-## 3.0.2. OOP 설계 5원칙 SOLID
+### 3.0.2 OOP 설계 5원칙 SOLID
 - 객체 지향 설계시 지켜야할 원칙
 1. SRP(Single Responsibility Principle): 단일 책임 원칙
 2. OCP(Open Closed Priciple): 개방 폐쇄 원칙
@@ -21,28 +67,28 @@ Java 스타일 가이드
 4. ISP(Interface Segregation Principle): 인터페이스 분리 원칙
 5. DIP(Dependency Inversion Principle): 의존 역전 원칙
 
-## 3.0.3. 타입
+### 3.0.3 타입
 ### 3.0.3.1 Call by Value
 - 기본 타입
     - byte, int, char, boolean ...
     - 변수의 메모리 위치에 바로 값을 가진다.
 
-### 3.0.3.2 Call by Reference
+#### 3.0.3.2 Call by Reference
 - Array, Object
 - Copy
     - shallow copy
     - deep copy
 
-### 3.0.3.3 String
+#### 3.0.3.3 String
 - Immutable
 - StringBuffer
     - 수정이 많은 String 사용시, 지향
 
-### 3.0.3.4 연산된 값
+#### 3.0.3.4 연산된 값
 - getter, setter
 - predicate: boolean 값을 반환하는 함수
 
-## 3.0.4 접근자
+### 3.0.4 접근자
 - public: 접근 제한이 없는
 - private: 클래스 내에서만 접근 가능한
 - protected: 동일한 패키지 또는 파생클래스에서만 접근 가능한
@@ -54,7 +100,7 @@ Java 스타일 가이드
 - static final: 상수 (고정된 최종)
 - default: 인터페이스에서, 로직을 포함한 메소드 선언 가능한 (기본적인)
 
-## 3.0.5 OOP
+### 3.0.5 인터페이스, 클래스, 인스턴스
 - 인터페이스: 객체의 명세
     - 동작의 추상화: 객체의 외부에서 쓰일 메서드들을 모두 작성
     - default 동작: default 접근자로 작성하는 default 로직
@@ -201,6 +247,7 @@ public void process(Runnable r){
 // 함수형 인터페이스를 구현한 클래스의 인스턴스로써 사용되고 있다.
 process(() -> System.out.println("run!"));
 ```
+
 #### 3.1.4.1 기본 제공 함수형 인터페이스 (자바8)
 - `Predicate<T>`
     - `T -> boolean`
@@ -255,7 +302,9 @@ inventory.sort(comparing(Apple::getWeight)); // 메서드 참조
         - 메서드 참조: `expr::instanceMethod(args)`
     - ex) Transaction이라는 클래스가 있을때, 생성된 expensiveTransaction
         - `expensiveTransaction::getValue`
-#### 3.1.5.2 생성자 참조
+
+
+#### 3.1.6 생성자 참조
 ```java
 // # 1. Supplier: () -> Apple 시그니처의 생성자가 있다고 할 때,
 // ## 1-0. 람다 방식
