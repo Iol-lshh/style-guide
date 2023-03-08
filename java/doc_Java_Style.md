@@ -42,7 +42,8 @@ Java 스타일 가이드
             - [3.2.2.1 Comparator](#3221-comparator)
         - [3.2.3 Comparable](#323-comparable)
     - [3.3 스트림](#33-스트림)
-
+        - [3.3.1 연산 함수](#331-연산-함수)
+    - [3.4 옵셔널 체이닝](#34-옵셔널-체이닝)
 
 
 
@@ -442,37 +443,37 @@ public class ClassName implements Comparable<Type> {
 ## 3.3 스트림
 - 데이터 처리 연산을 지원하는 소스에서 추출된 연속된 요소
 - 특징
-    - 연속된 요소
-    - 소스
-    - 데이터 처리 연산
+    1. 연속된 요소
+    2. 소스
+    3. 데이터 처리 연산
         - 컬렉션의 주제는 자료구조의 복잡성과 데이터
         - 스트림의 주제는 표현 계산식과 연산
-    - 파이프라이닝
+    4. 파이프라이닝
         - laziness, short-circuiting 최적화를 얻을 수 있다.
-    - 내부 반복
+    5. 내부 반복
         - 반복자를 사용하는 컬렉션과 달리, 내부 반복을 지원한다.
         - 외부 반복에서는 병렬성을 스스로 관리해야한다.
 - 장점
-    - 선언형: 간결, 가독성 증대
-    - 조립성: 유연성 증대
+    1. 선언형: 간결, 가독성 증대
+    2. 조립성: 유연성 증대
         - 고수준 빌딩 블록으로 이루어져, 특정 스레딩 모델에 제한되지 않고, 자유롭게 사용 가능하다.
-    - 병렬화: 성능 향상
+    3. 병렬화: 성능 향상
         - 소프트웨어 공학적으로(내부적으로) 멀티코어 아키텍처를 최대한 활용 가능
 - 종류
     - 순차 `stream()`
     - 병렬 `parallelStream()`
         - 멀티스레드로 구현하지 않고, 병렬로 데이터 처리 가능
-- 연산
-    - filter
-        - return을 boolean 값으로, 해당 element 필터링 여부 결정
-    - sorted
-        - comparator를 받아, compare
-    - map
-        - return 값으로 element들을 대체
-    - limit
-        - 반환 갯수 제한
-    - collect
-        - 집계하여 새로운 자료구조로 반환
+### 3.3.1 연산 함수
+- filter
+    - return을 boolean 값으로, 해당 element 필터링 여부 결정
+- sorted
+    - comparator를 받아, compare
+- map
+    - return 값으로 element들을 대체
+- limit
+    - 반환 갯수 제한
+- collect
+    - 집계하여 새로운 자료구조로 반환
 
 ```java
 // # stream 파이프라인 처리
@@ -492,7 +493,7 @@ List<String> lowCaloricDishesName = menu.parallelStream()
 
 
 
-- 옵셔널 체이닝
+## 3.4 옵셔널 체이닝
 
 
 
