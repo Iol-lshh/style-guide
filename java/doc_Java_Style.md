@@ -532,7 +532,7 @@ List<String> lowCaloricDishesName = menu.parallelStream()
     - cf) Option[T]
 
 ### 3.4.1 작동 방식
-![Java_Optional_Car](./Docs-Ref/img_Java_Optional_Car.PNG)
+![Java_Optional_Car](./Docs-Ref/img_Java_Optional.PNG)
 - `Optional` 객체는 값을 감싼다.
 - 값이 없다면, `Optional.empty` 메서드가 빈 `Optional`을 반환한다.
     - `null`은 `NullPointerException`을 일으키지만, `Optional.empty()`는 `Optional` 객체이므로, 에러를 일으키지 않는다.
