@@ -43,8 +43,34 @@ Java 스타일 가이드
         - [3.2.3 Comparable](#323-comparable)
     - [3.3 스트림](#33-스트림)
         - [3.3.1 연산 함수](#331-연산-함수)
-    - [3.4 옵셔널 체이닝](#34-옵셔널-체이닝)
-
+    - [3.4 Optional - null 처리](#34-optional---null-처리)
+        - [3.4.1 작동 방식](#341-작동-방식)
+            - [3.4.1.1 null 참조 처리 예](#3411-null-참조-처리-예)
+            - [3.4.1.2 Optional 처리의 예](#3412-optional-처리의-예)
+        - [3.4.2 Optional 랩 메서드](#342-optional-랩-메서드)
+            - [3.4.2.1 빈 Optional - `Optional.empty`](#3421-빈-optional---optionalempty)
+            - [3.4.2.2 null이 아닌 Optional - `Optional.of`](#3422-null이-아닌-optional---optionalof)
+            - [3.4.2.3 null이 가능한 Optional - `Optional.ofNullable`](#3423-null이-가능한-optional---optionalofnullable)
+        - [3.4.3 Optional 언랩 메서드](#343-optional-언랩-메서드)
+            - [3.4.3.1 get](#3431-get)
+            - [3.4.3.2 orElse](#3432-orelse)
+            - [3.4.3.3 orElseGet](#3433-orelseget)
+            - [3.4.3.4 orElseThrow](#3434-orelsethrow)
+            - [3.4.3.5 ifPresent](#3435-ifpresent)
+            - [3.4.3.6 ifPresentOrElse](#3436-ifpresentorelse)
+        - [3.4.4 Optional의 체이닝 처리 (스트림)](#344-optional의-체이닝-처리-스트림)
+            - [3.4.4.1 map](#3441-map)
+            - [3.4.4.2 flatMap](#3442-flatmap)
+            - [3.4.4.3 filter](#3443-filter)
+            - [3.4.4.4 stream](#3444-stream)
+    - [3.5 시간](#35-시간)
+        - [3.5.1 클래스](#351-클래스)
+            - [3.5.1.1 LocalDate](#3511-localdate)
+            - [3.5.1.2 LocalTime](#3512-localtime)
+            - [3.5.1.3 LocalDateTime](#3513-localdatetime)
+            - [3.5.1.4 Instant](#3514-instant)
+            - [3.5.1.5 Duration, Period](#3515-duration-period)
+        - [3.5.2 공통 메서드](#352-공통-메서드)
 
 
 # 1. 변수 명명 규칙
@@ -493,7 +519,288 @@ List<String> lowCaloricDishesName = menu.parallelStream()
 
 
 
-## 3.4 옵셔널 체이닝
+## 3.4 `Optional` - Null 처리
+- java.util.Optional<T>
+- `null` 참조
+    - `null` 참조는 `NullPointerException`을 일으킨다.
+    - `null`을 줄이기 위한 유효성 검사는 고려사항이 많다.
+    - 에러의 근원. 시스템의 구멍.
+    - 처리하기 위해, 코드를 어지럽힌다.
+    - 아무 의미도 없다.
+- `null` 참조 대신, `Optional` 클래스 활용을 지향한다.
+    - js의 `?.`, 하스켈의 `Maybe`와 같은 역할
+    - cf) Option[T]
+
+### 3.4.1 작동 방식
+![Java_Optional_Car](./Docs-Ref/img_Java_Optional_Car.PNG)
+- `Optional` 객체는 값을 감싼다.
+- 값이 없다면, `Optional.empty` 메서드가 빈 `Optional`을 반환한다.
+    - `null`은 `NullPointerException`을 일으키지만, `Optional.empty()`는 `Optional` 객체이므로, 에러를 일으키지 않는다.
+    - `null`의 경우, **의도적으로 빈 값인지, 잘못된 값인지, 판단이 불가능**하다.
+    - `Optional`은 **의도적으로 값이 없을 수 있다**는 것을 명시적으로 보여준다.
 
 
+#### 3.4.1.1 null 참조 처리 예
+```java
+// 클래스 부분 생략
+// 처리 부분
+public String getCarInsuranceName(Person person){
+    if (person == null){
+        return "Unknown";
+    }
+    Car car = person.getCar();
+    if(car == null){
+        return "Unknown";
+    }
+    Insurance insurance = car.getInsurance();
+    if(insurance == null){
+        return "Unknown";
+    }
+    return insurance.getName();
+    // 만약, if문 중에 null 처리를 한곳이라도 안해준다면, 반드시 에러가 발생한다.
+}
+```
+#### 3.4.1.2 Optional 처리의 예
+```java
+// 클래스
+public class Person{
+    private Optional<Car> car;
+    public Opional<Car> getCar(){
+        return car;
+    }
+}
+//
+public class Car{
+    private Optional<Insurance> insurance;
+    public Opional<Insurance> getInsurance(){
+        return insurance;
+    }
+}
+//
+public class Insurance{
+    private String name;
+    public String getName(){
+        return insurance;
+    }
+}
+// 처리 부분 - null 참조 처리에 비해, 압도적으로 간결해졌다!
+public String getCarInsuranceName(Optional<Person> person)
+    return person.flatMap(Person::getCar)
+                .flatMap(Car::getInsurance)
+                .map(Insurance::getName)
+                .orElse("Unknow");
+```
+- 실제로, JPA는 단일 Entity를 반환시, Optional로 반환함으로써,
+- 조회된 Entity가 없을 수 있음을 명시한다!
+
+
+
+### 3.4.2 Optional 랩 메서드
+- Optional.empty()
+- Optional.of()
+- Optional.ofNullable()
+
+#### 3.4.2.1 빈 Optional - `Optional.empty`
+- 비어있음을 의도적으로 표현
+```java
+Optional<Car> maybeCar = Optional.empty();
+```
+
+#### 3.4.2.2 null이 아닌 Optional - `Optional.of`
+- null이 될 수 없음을 표현
+- null이라면, NullPointerException을 발생
+```java
+Optional<Car> maybeCar = Optional.of(car);
+```
+
+#### 3.4.2.3 null이 가능한 Optional - `Optional.ofNullable`
+- null이 가능
+- null 이라면, 빈 Optional을 반환
+```java
+Optional<Car> maybeCar = Optional.ofNullable(car);
+```
+
+
+### 3.4.3 Optional 언랩 메서드
+- get
+- orElse
+- orElseGet
+- orElseThrow
+- ifPresent
+- ifPresentOrElse
+
+#### 3.4.3.1 get
+- 랩핑된 값을 반환
+- 값이 없다면, NoSuchElementException
+- 가장 간단하지만, 안전하지 않은 메서드
+- Optional에 반드시 값이 있다고 가정하지 않는 이상 지양
+    - null 처리와 다를바가 없다.
+#### 3.4.3.2 orElse
+- orElse(T other)
+- 값이 없을 때, 기본값을 제공
+    - other은 반환되지 않을 수 있을 뿐, 반드시 만들어 놓는다.
+    - other에 entity 사용시/고비용시, orElseGet을 사용한다.
+#### 3.4.3.3 orElseGet
+- orElseGet(Supplier<? extends T> other)
+- orElse의 lazy 버전
+    - 값이 없을때만, Supplier를 실행
+        - 디폴트 메서드를 만드는 데 시간이 소모되거나(효율성),
+        - Optional이 비어있을 때만, 기본값을 생성해야 할 때 사용
+#### 3.4.3.4 orElseThrow
+- orElseThrow(Supplier<? extends X> exceptionSupplier)
+- Optional이 비어있다면, exceptionSupplier를 통해 예외를 발생시킨다
+    - 발생시킬 예외를 선택할 수 있다.
+#### 3.4.3.5 ifPresent
+- ifPresent(Consumer<? super T> consumer)
+- 값이 존재할 때, consumer를 실행
+- 값이 없다면 아무일도 일어나지 않는다
+#### 3.4.3.6 ifPresentOrElse
+- ifPresentOrElse(Consumer<? super T> consumer, Runnable emptyAction)
+- Optional이 비었을 때, 받은 Runnable 인수를 실행한다.
+
+
+
+
+### 3.4.4 Optional의 체이닝 처리 (스트림)
+#### 3.4.4.1 map
+- Optional은 맵 사용 가능
+- Optional은 요소 개수가 한 개 이하인 데이터 컬렉션
+```java
+Optional<Insurance> maybeInsurance = Optional.ofNullable(insurance);
+Optional<String> name = maybeInsurance.map(Insurance::getName);
+```
+
+#### 3.4.4.2 flatMap
+- Optional안의 Optional 구조의 경우, map의 중첩이 불가능하다.
+```java
+Optional<Person> maybePerson = Optional.of(person);
+Optional<String> name = maybePerson.map(Person::getCar)
+                                    .map(Car::getInsurance) // 불가!
+                                    .map(Insurance::getName);
+```
+
+- flatMap은 함수를 인수로 받아, 다른 스트림을 반환하는 메서드이다.
+- 참조 체인을 하기 때문에, 가능하다.
+```java
+public String getCarInsuranceName(Optional<Person> person)
+    return person.flatMap(Person::getCar) // person의 타입이 Optional<Car>가 된다.
+                .flatMap(Car::getInsurance)
+                .map(Insurance::getName)
+                .orElse("Unknow");
+```
+- 순차적으로, person이 `flatMap`에 의해 `Optional<Person>`>`Optional<Car>`>`Optional<Insurance>` 로 변환되며 스트림이 진행된다.
+- 만일, 도중 비어있다면, `Optional.empty`를 이후부터 반환한다.
+
+#### 3.4.4.3 filter
+- filter(Predicate<? extends T> predicate)
+- 값이 존재하고 Predicate에 알맞다면, Optional을 반환
+- 값이 존재하지 않거나 Predicate에 맞지 않다면, 빈 Optional 반환
+
+#### 3.4.4.4 stream
+- 값이 존재하면, 존재하는 값만 포함하는 스트림을 반환
+
+
+
+## 3.5 시간
+- java.time 패키지를 사용한다.
+    - 불변 객체
+        - 스레드 안전성과 도메인 모델의 일관성을 유지하기 위해
+- Java.util.Calendar와 Java.util.Date를 사용하지 않는다.
+    - 날짜와 시간 계산이 난해하다.
+    - 불변 객체가 아니다.
+
+### 3.5.1 클래스
+- LocalDate
+- LocalTime
+- LocalDateTime
+- Instant
+- Duration
+- Period
+
+#### 3.5.1.1 LocalDate
+- 연도, 달, 요일 등을 반환
+```java
+LocalDate date = LocalDate.of(1993, 4, 9);  // 1993-04-09의 LocalDate 객체
+
+int year = date.getYear();                  //1993
+Month month = date.getMonth();              //APRILL
+int day = date.getDayOfMonth();             //9
+DayOfWeek dow = date.getDayOfWeek();        //FRIDAY
+int len = date.lengthOfMonth();             //30
+boolean leap = date.isLeapYear();           //true (윤년)
+
+LocalDate today = LocalDate.now();          //오늘 데이터의 LocalDate 객체
+```
+#### 3.5.1.2 LocalTime
+```java
+LocalTime time = LocalTime.of(13, 45, 20);  // 13:45:20의 LocalTime 객체
+int hour = time.getHour();                  // 13
+int minute = time.getMinute();              // 45
+int second = time.getSecond();              // 20
+```
+
+#### 3.5.1.3 LocalDateTime
+- LocalDate + LocalTime
+```java
+// 2017-09-21T13:45:20
+LocalDateTime dt1 = LocalDateTime.of(2017, Month.SEPTEMBER, 21, 13, 45, 20)
+LocalDateTime dt2 = LocalDateTime.of(date, time);
+LocalDateTime dt3 = date.atTime(13, 45, 20);
+LocalDateTime dt4 = date.atTime(time);
+LocalDateTime dt5 = date.atDate(date);
+
+LocalDate date = dt1.toLocalDate();
+LocalTime time = dt1.toLocalTime();
+```
+#### 3.5.1.4 Instant
+- java.time.Instant
+- 기계 날짜 시간(Unix epoch time 1970-01-01T00:00:00UTC 기준의 초)
+- 나노초(10억분의 1)의 정밀도
+- ofEpochSecond
+
+#### 3.5.1.5 Duration, Period
+- 두 시간 객체 사이의 지속시간 클래스
+```java
+//
+Duration d1 = Duration.between(time1, time2);
+Duration d2 = Duration.between(dateTime1, dateTime2);
+Duration d3 = Duration.between(instant1, instant2);
+Duration d3 = Duration.between(LocalDate.of(2017, 9, 11), LocalDate.of(2017, 9, 21));
+
+//
+Duration d4 = Duration.ofMinutes(3);
+Duration d4 = Duration.of(3, ChronoUnit.MINUTES);
+
+//
+Period tenDays = Period.ofDays(10);
+Period threeWeeks = Period.ofWeeks(3);
+Period twoYearsSixMonthsOneDay = Period.of(2, 6, 1);
+```
+
+### 3.5.2 공통 메서드
+- 정적
+    1. now
+        - 시스템 시계로 Temporal 객체 생성
+    2. of
+        - 인자로 Temporal 객체 생성
+    3. from
+        - Temporal 인자로 클래스의 인스턴스 생성
+    4. parse
+        - 문자열을 파싱하여 Temporal 객체 생성
+- 비정적
+    1. get
+        - Temporal 객체 상태
+    2. atOffset
+        - 시간대 오프셋과 Temporal 객체를 합친다
+    3. atZone
+        - 지역 시간대 오프셋과 Temporal 객체를 합친다
+    4. format
+        - 지정 포맷을 이용하여 Temporal 객체를 문자열로 변환
+        - Instant 미지원
+    5. plus
+        - 특정 시간을 더한 Temporal 객체를 깊은 복사 생성
+    6. minus
+        - 특정 시간을 뺀 Temporal 객체를 깊은 복사 생성
+    7. with
+        - 일부 상태를 변경한 Temporal 객체를 깊은 복사 생성
 
