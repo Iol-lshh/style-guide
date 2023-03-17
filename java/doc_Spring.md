@@ -72,7 +72,7 @@
     - 인터페이스를 통해, 소스의 코드 문서화를 지향한다.
     - `default` 접근자를 이용하여, 구현과 로직을 분리하여, 함수의 기능을 단일화한다.
     - 함수는 <span style="color:red">**반드시 명확한 한가지 기능만을**</span> 갖추며, 적확한 이름을 가져야 한다.
-    - Null 처리시, [Optional](./doc_Java_Style.md#34-optional---null-처리)을 활용한 처리를 지향한다.
+    - Null 처리시, [Optional](./doc_Java.md#34-optional---null-처리)을 활용한 처리를 지향한다.
 ```java
 // 서비스 인터페이스
 public interface HomeService {
