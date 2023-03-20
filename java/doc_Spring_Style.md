@@ -1,26 +1,33 @@
-> [Home](/README.md)
+> [Home](../README.md)
 
-- 의존성
-- 설정 관리
-- 컨트롤러
-- 서비스
-    - 인터페이스
-        - 디폴트 메서드
-    - 설정 상수 값
-    - 트랜잭션 전략
-- 도메인
-    - QueryFactory
-        - QueryStatement
-        - 분류
-            - Plain Text Query
-            - SP
-            - MyBatis
-    - JPA
-        - Entity
-            - 관계
-        - Repository
-            - 커스텀
-- fileIo
+- [4. SpringBoot](#4-springboot)
+    - [4.0 Spring](#40-spring)
+        - [4.0.1 특징](#401-특징)
+        - [4.0.2 SpringBoot](#402-springboot)
+    - [4.1 gradle](#41-gradle)
+        - [4.1.1 버전](#411-버전)
+        - [4.1.2 의존성](#412-의존성)
+    - [4.2 설정 관리](#42-설정-관리)
+    - [4.3 컴포넌트](#43-컴포넌트)
+        - [4.3.1 controller](#431-controller)
+        - [4.3.2 service](#432-service)
+    - [4.4 domain 컴포넌트](#44-domain-컴포넌트)
+        - [4.4.0 dto](#440-dto)
+        - [4.4.1 JPA](#441-jpa)
+            - [4.4.1.0 설정](#4410-설정)
+            - [4.4.1.1 entity](#4411-entity)
+                - [4.4.1.1.1 관계](#44111-관계)
+            - [4.4.1.2 repository](#4412-repository)
+    - [4.5 queryFactory](#45-queryfactory)
+        - [4.5.1 QueryFactory](#451-queryfactory)
+            - [4.5.1.1 plain text query](#4511-plain-text-query)
+            - [4.5.1.2 User Saved Procedure](#4512-user-saved-procedure)
+            - [4.5.1.3 MyBatis](#4513-mybatis)
+        - [4.5.2 QueryStatement](#452-querystatement)
+            - [4.5.2.1 TextQueryStatement](#4521-textquerystatement)
+            - [4.5.2.2 ProcedureQueryStatement](#4522-procedurequerystatement)
+            - [4.5.2.3 MyBatisQueryStatement](#4523-mybatisquerystatement)
+
 
 # 4. SpringBoot
 ## 4.0 Spring
@@ -49,12 +56,42 @@
     4. 실행 가능한 JAR로 개발 가능
 
 
-## 4.1 의존성
-- `build.gradle`에 수록
+## 4.1 gradle
+- [build.gradle](../build.gradle)에 수록
+### 4.1.1 버전
+```gradle
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.0.3'
+	id 'io.spring.dependency-management' version '1.1.0'
+}
+
+group = 'chunjae'
+sourceCompatibility = '17'
+```
+
+### 4.1.2 의존성
+```gradle
+implementation 'org.springframework.boot:spring-boot-starter-data-rest'
+implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'	
+implementation 'org.springframework.boot:spring-boot-starter-web'
+implementation 'org.springframework.boot:spring-boot-starter-actuator'
+implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+implementation 'org.beanshell:bsh-core:2.0b4'
+implementation 'javax.persistence:javax.persistence-api:2.2'
+implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
+compileOnly 'org.projectlombok:lombok'
+developmentOnly 'org.springframework.boot:spring-boot-devtools'
+runtimeOnly 'com.microsoft.sqlserver:mssql-jdbc'
+annotationProcessor 'org.projectlombok:lombok'
+testImplementation 'org.springframework.boot:spring-boot-starter-test'
+```
 
 ## 4.2 설정 관리
-- `application.yml`에 수록
+- [application.yml](../src/main/resources/application.yml)에 수록
 - yml 확장자 방식 적용
+- 필요시, 적확한 이름의 설정 파일 추가 관리
 - 싱글톤 컴포넌트에서의 `@Value` 활용 지향
 
 ## 4.3 컴포넌트
@@ -71,8 +108,8 @@
 - 반드시, 인터페이스와 구현체로 분리한다.
     - 인터페이스를 통해, 소스의 코드 문서화를 지향한다.
     - `default` 접근자를 이용하여, 구현과 로직을 분리하여, 함수의 기능을 단일화한다.
-    - 함수는 <span style="color:red">**반드시 명확한 한가지 기능만을**</span> 갖추며, 적확한 이름을 가져야 한다.
-    - Null 처리시, [Optional](./doc_Java.md#34-optional---null-처리)을 활용한 처리를 지향한다.
+    - 함수는 반드시 <span style="color:red">**명확한 한가지 기능**</span>만을 갖추며, 적확한 이름을 가져야 한다.
+    - Null 처리시, [Optional](./doc_Java_Style.md#34-optional---null-처리)을 활용한 처리를 지향한다.
 ```java
 // 서비스 인터페이스
 public interface HomeService {
@@ -165,7 +202,7 @@ spring:
 - 컬럼 명, 데이터 타입을 명시한다.
     - `@Column(name = "Idx")`
     - `@Column(name = "UserID", columnDefinition = "varchar", length = 50)`
-    - 
+
 - 롬복을 이용한 Setter 구현시, `@Accessors(chain = true)` 옵션 이상을 준다.
     - `lombok.experimental.Accessors`
 - Entity 동적 쿼리 기능 
@@ -176,10 +213,82 @@ spring:
 - 날짜 등의 정보는 상속받는다.
     - 시간은 LocalDate/LocalTime/LocalDateTime을 이용한다.
         - `java.time`
-        
+- 참/거짓의 데이터일 경우, getter/setter를 boolean 값과 연계하여 만드는 것을 추천한다.
+    - 롬복을 사용한다면, `@Getter(AccessLevel.NONE)`, `@Setter(AccessLevel.NONE)`를 통해, 자동 getter/setter 생성을 막고, 직접 구현하는 것을 추천한다.
+```java
+@Accessors(chain = true)
+@Data
+@DynamicInsert
+@DynamicUpdate
+@Table(name = "TBL_LCMS_Notice")
+@Entity
+public class LcmsNotice {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "Idx")
+    private Integer idx;
+
+    @Getter(AccessLevel.NONE)   // 롬복이 이 필드의 Getter를 자동 생성하지 않는다.
+    @Setter(AccessLevel.NONE)   // 롬복이 이 필드의 Setter를 자동 생성하지 않는다.
+    @ColumnDefault("'N'")
+    @Column(name = "DeleteYN", columnDefinition = "char", length = 1)
+    private String deleteYN;
+
+    // Getter 1: DB 데이터가 "Y"라면 true를 반환한다.
+    public boolean isDeleted(){
+        return this.deleteYN.equals("Y") ? true : false;
+    }
+
+    // Getter 2: DB 데이터 그대로 반환한다.
+    public String getDeleteYN(){
+        return this.deleteYN;
+    }
+
+    // Setter 1: true 값을 받는다면, "Y"를 입력한다.
+    public LcmsNotice setDeleteYN(boolean deleted){
+        this.deleteYN = deleted ? "Y" : "N";
+        return this;
+    }
+
+    // Setter 2: 오버로딩, "Y"를 그대로 입력한다.
+    public LcmsNotice setDeleteYN(String deleteYN){
+        this.deleteYN = deleteYN;
+        return this;
+    }
+}
+```
+
 ##### 4.4.1.1.1 관계
 - Lazy 전략을 지향한다.
-- n:m 구현시, 중간 객체를 따로 구현한다.
+    - 서비스 단에서, `@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_UNCOMMITTED)` 트랜잭션 사용을 추천한다.
+        - 전파: 필요함 (없을 경우, 트랜잭션 생성)
+        - 고립성: READ UNCOMMITTED
+- n : m 구현시, 중간 객체를 따로 구현하는 것을 추천한다.
+- Join이 인덱스를 타는 설계를 지향한다.
+
+```java
+// 1
+public class AssignRole {
+    @Id
+    @Column(name = "assign_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long assignId;
+
+    @OneToMany(mappedBy = "assignRole" )
+    private List<LoopAssign> loopAssignList  = new ArrayList<LoopAssign>();
+}
+
+// n
+public class LoopAssign {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long loopAssignId;
+
+    @ManyToOne(targetEntity = AssignRole.class, fetch = FetchType.LAZY)
+    @JoinColumn(name="assign_id")
+    private AssignRole assignRole;
+}
+```
 
 #### 4.4.1.2 repository
 - `JpaRepository<엔티티명, 엔티티 식별자id 타입>`
@@ -189,10 +298,10 @@ spring:
 Optional<LcmsNotice> findLcmsNoticeByIdx(int idx);
 ```
 - Optional을 단순 get으로 받는 것을 지양한다.
-- 하드 딜리트를 지양한다. 소프트 딜리트를 지향하여, `notDeleted`로 처리하자.
+- 하드 딜리트를 지양한다.
+    - 소프트 딜리트를 지향하여, `notDeleted` 속성으로 처리하자.
 
 ```java
-// 서비스에서
 @Override
 @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_UNCOMMITTED)
 public LcmsNotice update(LcmsNoticeDto dto, List<String> ff) throws NoSuchElementException{
@@ -215,6 +324,8 @@ public LcmsNotice update(LcmsNoticeDto dto, List<String> ff) throws NoSuchElemen
 
 ### 4.5.1 QueryFactory
 - `chunjae.api.common.queryFactory.QueryFactory`
+- 작성할 쿼리문에 대한 객체를 생성해준다.
+    - 설정을 갖는다.
 - `BasicQueryFactory`로 구현된다.
 
 #### 4.5.1.1 plain text query
@@ -231,6 +342,13 @@ public LcmsNotice update(LcmsNoticeDto dto, List<String> ff) throws NoSuchElemen
 
 ### 4.5.2 QueryStatement
 - `chunjae.api.common.queryFactory.QueryStatement`
+- 쿼리문을 작성하는 객체
+- 구현체를 통해 세부 방법이 나뉘며, 해당 방법을 통해 데이터베이스와 연결된다.
+- `set`: 쿼리의 본문을 작성할 수 있다.
+- `addParam`: 본문의 파라미터를 넣을 수 있다.
+- `clearParams`: 입력된 파라미터들을 지울 수 있다.
+- `query~`: 쿼리를 디비로 전송해, 조회할 수 있다.
+- `command`: 쿼리를 디비로 전송해, 쓰기할 수 있다.
 
 ```java
 public interface QueryStatement {

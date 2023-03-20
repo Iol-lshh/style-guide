@@ -1,4 +1,4 @@
-> [Home](/README.md)
+> [Home](../README.md)
 
 - [3. Java 문법](#3-java-문법)
     - [3.0 Java 기초](#30-java-기초)
@@ -22,7 +22,7 @@
         - [3.1.3 제네릭 Generic](#313-제네릭-generic)
         - [3.1.4 함수 디스크립터](#314-함수-디스크립터)
             - [3.1.4.1 기본 제공 함수형 인터페이스 (자바8)](#3141-기본-제공-함수형-인터페이스-자바8)
-        - [3.1.5 메서드 참조 `::`](#315-메서드-참조)
+        - [3.1.5 메서드 참조 ::](#315-메서드-참조)
         - [3.1.6 생성자 참조](#316-생성자-참조)
     - [3.2 컬렉션](#32-컬렉션)
         - [3.2.1 상속 관계](#321-상속-관계)
@@ -45,9 +45,9 @@
             - [3.4.1.1 null 참조 처리 예](#3411-null-참조-처리-예)
             - [3.4.1.2 Optional 처리의 예](#3412-optional-처리의-예)
         - [3.4.2 Optional 랩 메서드](#342-optional-랩-메서드)
-            - [3.4.2.1 빈 Optional - `Optional.empty`](#3421-빈-optional---optionalempty)
-            - [3.4.2.2 null이 아닌 Optional - `Optional.of`](#3422-null이-아닌-optional---optionalof)
-            - [3.4.2.3 null이 가능한 Optional - `Optional.ofNullable`](#3423-null이-가능한-optional---optionalofnullable)
+            - [3.4.2.1 빈 Optional - Optional.empty](#3421-빈-optional---optionalempty)
+            - [3.4.2.2 null이 아닌 Optional - Optional.of](#3422-null이-아닌-optional---optionalof)
+            - [3.4.2.3 null이 가능한 Optional - Optional.ofNullable](#3423-null이-가능한-optional---optionalofnullable)
         - [3.4.3 Optional 언랩 메서드](#343-optional-언랩-메서드)
             - [3.4.3.1 get](#3431-get)
             - [3.4.3.2 orElse](#3432-orelse)
@@ -299,7 +299,7 @@ process(() -> System.out.println("run!"));
     - 이중 기능자
 
 
-### 3.1.5 메서드 참조 `::`
+### 3.1.5 메서드 참조 ::
 - 특정 메서드만 호출하는 기능
 ```java
 // java.util.Comparator.comparing 활용
@@ -512,7 +512,7 @@ List<String> lowCaloricDishesName = menu.parallelStream()
 
 
 
-## 3.4 `Optional` - Null 처리
+## 3.4 Optional - Null 처리
 - java.util.Optional<T>
 - `null` 참조
     - `null` 참조는 `NullPointerException`을 일으킨다.
@@ -593,20 +593,20 @@ public String getCarInsuranceName(Optional<Person> person)
 - Optional.of()
 - Optional.ofNullable()
 
-#### 3.4.2.1 빈 Optional - `Optional.empty`
+#### 3.4.2.1 빈 Optional - Optional.empty
 - 비어있음을 의도적으로 표현
 ```java
 Optional<Car> maybeCar = Optional.empty();
 ```
 
-#### 3.4.2.2 null이 아닌 Optional - `Optional.of`
+#### 3.4.2.2 null이 아닌 Optional - Optional.of
 - null이 될 수 없음을 표현
 - null이라면, NullPointerException을 발생
 ```java
 Optional<Car> maybeCar = Optional.of(car);
 ```
 
-#### 3.4.2.3 null이 가능한 Optional - `Optional.ofNullable`
+#### 3.4.2.3 null이 가능한 Optional - Optional.ofNullable
 - null이 가능
 - null 이라면, 빈 Optional을 반환
 ```java
