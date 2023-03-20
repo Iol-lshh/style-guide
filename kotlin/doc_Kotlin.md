@@ -161,9 +161,133 @@ fun main(args: Array<String>){  // 최상위 엔트리 함수
 - 엘비스 연산자: null 인 경우, 주어진 값(0)을 반환하고, 그렇지 않은 경우 그대로 반환
 
 
-## 0.6 when
+## 0.6 비교 제어
 
-## 0.7 .. 연산자
+### 0.6.1 when
+- switch 문 대용
+- when은 제어식이다. 값이 될 수 있다.
+- break를 필요로 하지 않는다.
 
-## 0.8 예외 처리
+#### 0.6.1.1 enum과 when
+```kotlin
+// enum 정의
+enum class Color(
+    val r: Int, val g: Int, val b: Int
+){
+    RED(255, 0, 0), ORANGE(255, 165, 0), YELLOW(255, 255, 0),
+    GREEN(0, 255, 0), BLUE(0, 0, 255), INDIGO(75, 0, 130),
+    VIOLET(238, 130, 238);
 
+    fun rgb() = (r * 256 + g) * 256 + b
+}
+
+// when 사용
+fun getMnemonic(color: Color) = 
+    when (color){
+        Color.RED, Color.ORANGE, Color.YELLOW -> "warm"
+        Color.GREEN -> "natural"
+        Color.BLUE, Color.INDIGO, Color.VIOLET -> "cold"
+    }
+
+// when에 임의의 객체를 사용
+fun mix(c1: Color, c2: Color) = 
+    when (setOf(c1, c2)){
+        setOf(RED, YELLOW) -> ORANGE
+        setOf(YELLOW, BLUE) -> GREEN
+        setOf(BLUE, VIOLET) -> INDIGO
+        else -> throw Exception("Dirty color")
+    }
+
+// 인자 없는 when
+// when이 인자를 받지 않기 위해선, 각각의 조건은 boolean 결과여야 한다.
+fun mixOptimized(c1: Color, c2: Color) = 
+    when {
+        (c1 == RED && c2 == YELLOW) ||
+        (c1 == YELLOW && C2 = RED) -> 
+            ORANGE
+        (c1 == YELLOW && BLUE == YELLOW) ||
+        (c1 == BLUE && YELLOW = RED) -> 
+            GREEN
+        (c1 == BLUE && VIOLET == YELLOW) ||
+        (c1 == VIOLET && BLUE = RED) -> 
+            INDIGO
+        else -> throw Exception("Dirty color")
+    }
+```
+
+### 0.6.2 if 스마트 캐스트
+- if 문에 의해, 비교된 타입은, 이후 블록 안에서 스마트 캐스팅 된다.
+```kotlin
+// 식을 표현하는 클래스 계층
+interface Expr
+class Num(val value: Int): Expr
+class Sum(val left: Expr, val right: Expr): Expr    // Expr 타입(Num, Sum)이 인자로 올 수 있다.
+
+fun eval(e: Expr):Int {
+    if(e is Num){   // if 문에 의해, e가 Num 타입이라면, 이후 자동으로 캐스팅 된다.
+        return n.value
+    }
+    if(e is Sum){   // if 문에 의해, e가 Sum 타입이라면, 이후 자동으로 캐스팅 된다.
+        return eval(e.right) + eval(e.left)
+    }
+    throw IllegalArgumentException("Unknow expression")
+}
+```
+
+#### 0.6.2.1 when 또한 스마트 캐스팅 된다.
+- when 문에 의해, 비교된 타입은, 이후 블록 안에서 스마트 캐스팅 된다.
+```kotlin
+fun evalOptimized(e: Expr):Int =
+    when (e){
+        is Num ->   // 스마트 캐스트 
+            e.value
+        is Sum ->   // 스마트 캐스트
+            eval(e.right) + eval(e.left)
+        else -> 
+            throw IllegalArgumentException("Unknow expression")
+    }
+
+```
+
+## 0.7 이터레이션 제어
+- 루프는 문이다.
+
+### 0.7.1 .. 연산자
+- 시작 값과 끝 값을 연결하여, 범위를 만든다.
+- 범위를 통해, 루프문에 이용한다.
+- 범위 값을 이용한 제어를 수열progression이라고 한다.
+
+```kotlin
+val oneToTen = 1..10    // 범위가 된다.
+```
+
+#### 0.7.1.1 map에 대한 이터레이션
+```kotlin
+val binaryReps = TreeMap<Char, String>()
+for(c in 'A'..'F'){
+    // 1. 아스키 코드를 2진으로 바꾼다.
+    val binary = Integer.toBinaryString(c.toInt())
+    // 2. 맵에 넣는다.  
+    binaryReps[c] = binary  
+}
+```
+
+### 0.7.2 in을 이용한 범위 검사
+- in, !in을 통해 어떤 값이 범위에 속하지 않는지 검사할 수 있다.
+```kotlin
+fun isLetter(c: Char) = c in 'a'..'z' || c in 'A'..'Z'
+fun isNotDigit(c: Char) = c !in '0'..'9'
+
+fun recognize(c: Char) = when(c){
+    in '0'...'9' -> "digit"
+    in 'a'..'z', in 'A'..'Z' -> "letter"
+    else -> "dontKnow"
+}
+
+"Kotlin" in setOf("Java", "Scala") // false
+```
+
+## 0.8 예외 처리 제어
+- try는 식이다.
+- 다른 클래스의 인스턴스 생성과 마찬가지로, 예외 인스턴스 생성시 new가 필요 없다.
+- 함수에 던질 수 있는 예외를 명시할 필요가 없다.
