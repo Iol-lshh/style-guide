@@ -1,85 +1,85 @@
 > [Home](../README.md)
 
-- [3. Java 문법](#3-java-문법)
-    - [3.0 Java 기초](#30-java-기초)
-        - [3.0.1 OOP 특징](#301-oop-특징)
-        - [3.0.2 OOP 설계 5원칙 SOLID](#302-oop-설계-5원칙-solid)
-        - [3.0.3 타입](#303-타입)
-            - [3.0.3.1 Call by Value](#3031-call-by-value)
-            - [3.0.3.2 Call by Reference](#3032-call-by-reference)
-            - [3.0.3.3 String](#3033-string)
-            - [3.0.3.4 연산된 값](#3034-연산된-값)
-        - [3.0.4 접근자](#304-접근자)
-        - [3.0.5 OOP](#305-인터페이스-클래스-인스턴스)
-    - [3.1 동작 파라미터](#31-동작-파라미터)
-        - [3.1.0 메서드](#310-메서드)
-            - [3.1.0.1 메서드 시그니처](#3101-메서드-시그니처)
-            - [3.1.0.2 메서드 오버로딩](#3102-메서드-오버로딩)
-        - [3.1.1 함수형 인터페이스와 구현 클래스](#311-함수형-인터페이스와-구현-클래스)
-            - [3.1.1.1 추상적 조건으로 필터링](#3111-추상적-조건으로-필터링)
-            - [3.1.1.2 익명 클래스](#3112-익명-클래스)
-        - [3.1.2 람다](#312-람다)
-        - [3.1.3 제네릭 Generic](#313-제네릭-generic)
-        - [3.1.4 함수 디스크립터](#314-함수-디스크립터)
-            - [3.1.4.1 기본 제공 함수형 인터페이스 (자바8)](#3141-기본-제공-함수형-인터페이스-자바8)
-        - [3.1.5 메서드 참조 ::](#315-메서드-참조)
-        - [3.1.6 생성자 참조](#316-생성자-참조)
-    - [3.2 컬렉션](#32-컬렉션)
-        - [3.2.1 상속 관계](#321-상속-관계)
-            - [3.2.1.1 List](#3211-list)
-                - [3.2.1.1.1 Stack](#32111-stack)
-                - [3.2.1.1.2 Vector](#32112-vector)
-                - [3.2.1.1.3 ArrayList](#32113-arraylist)
-            - [3.2.1.2 Set](#3212-set)
-                - [3.2.1.2.1 HashSet](#32121-hashset)
-            - [3.2.1.3 Map](#3213-map)
-                - [3.2.1.3.1 Hashtable](#32131-hashtable)
-                - [3.2.1.3.2 HashMap](#32132-hashmap)
-        - [3.2.2 Sorted](#322-sorted)
-            - [3.2.2.1 Comparator](#3221-comparator)
-        - [3.2.3 Comparable](#323-comparable)
-    - [3.3 스트림](#33-스트림)
-        - [3.3.1 연산 함수](#331-연산-함수)
-    - [3.4 Optional - null 처리](#34-optional---null-처리)
-        - [3.4.1 작동 방식](#341-작동-방식)
-            - [3.4.1.1 null 참조 처리 예](#3411-null-참조-처리-예)
-            - [3.4.1.2 Optional 처리의 예](#3412-optional-처리의-예)
-        - [3.4.2 Optional 랩 메서드](#342-optional-랩-메서드)
-            - [3.4.2.1 빈 Optional - Optional.empty](#3421-빈-optional---optionalempty)
-            - [3.4.2.2 null이 아닌 Optional - Optional.of](#3422-null이-아닌-optional---optionalof)
-            - [3.4.2.3 null이 가능한 Optional - Optional.ofNullable](#3423-null이-가능한-optional---optionalofnullable)
-        - [3.4.3 Optional 언랩 메서드](#343-optional-언랩-메서드)
-            - [3.4.3.1 get](#3431-get)
-            - [3.4.3.2 orElse](#3432-orelse)
-            - [3.4.3.3 orElseGet](#3433-orelseget)
-            - [3.4.3.4 orElseThrow](#3434-orelsethrow)
-            - [3.4.3.5 ifPresent](#3435-ifpresent)
-            - [3.4.3.6 ifPresentOrElse](#3436-ifpresentorelse)
-        - [3.4.4 Optional의 체이닝 처리 (스트림)](#344-optional의-체이닝-처리-스트림)
-            - [3.4.4.1 map](#3441-map)
-            - [3.4.4.2 flatMap](#3442-flatmap)
-            - [3.4.4.3 filter](#3443-filter)
-            - [3.4.4.4 stream](#3444-stream)
-    - [3.5 시간](#35-시간)
-        - [3.5.1 클래스](#351-클래스)
-            - [3.5.1.1 LocalDate](#3511-localdate)
-            - [3.5.1.2 LocalTime](#3512-localtime)
-            - [3.5.1.3 LocalDateTime](#3513-localdatetime)
-            - [3.5.1.4 Instant](#3514-instant)
-            - [3.5.1.5 Duration, Period](#3515-duration-period)
-        - [3.5.2 공통 메서드](#352-공통-메서드)
+- [4. Java 문법](#4-java-문법)
+    - [4.0 Java 기초](#40-java-기초)
+        - [4.0.1 OOP 특징](#401-oop-특징)
+        - [4.0.2 OOP 설계 5원칙 SOLID](#402-oop-설계-5원칙-solid)
+        - [4.0.3 타입](#403-타입)
+            - [4.0.3.1 Call by Value](#4031-call-by-value)
+            - [4.0.3.2 Call by Reference](#4032-call-by-reference)
+            - [4.0.3.3 String](#4033-string)
+            - [4.0.3.4 연산된 값](#4034-연산된-값)
+        - [4.0.4 접근자](#404-접근자)
+        - [4.0.5 OOP](#405-인터페이스-클래스-인스턴스)
+    - [4.1 동작 파라미터](#41-동작-파라미터)
+        - [4.1.0 메서드](#410-메서드)
+            - [4.1.0.1 메서드 시그니처](#4101-메서드-시그니처)
+            - [4.1.0.2 메서드 오버로딩](#4102-메서드-오버로딩)
+        - [4.1.1 함수형 인터페이스와 구현 클래스](#411-함수형-인터페이스와-구현-클래스)
+            - [4.1.1.1 추상적 조건으로 필터링](#4111-추상적-조건으로-필터링)
+            - [4.1.1.2 익명 클래스](#4112-익명-클래스)
+        - [4.1.2 람다](#412-람다)
+        - [4.1.3 제네릭 Generic](#413-제네릭-generic)
+        - [4.1.4 함수 디스크립터](#414-함수-디스크립터)
+            - [4.1.4.1 기본 제공 함수형 인터페이스 (자바8)](#4141-기본-제공-함수형-인터페이스-자바8)
+        - [4.1.5 메서드 참조 ::](#415-메서드-참조)
+        - [4.1.6 생성자 참조](#416-생성자-참조)
+    - [4.2 컬렉션](#42-컬렉션)
+        - [4.2.1 상속 관계](#421-상속-관계)
+            - [4.2.1.1 List](#4211-list)
+                - [4.2.1.1.1 Stack](#42111-stack)
+                - [4.2.1.1.2 Vector](#42112-vector)
+                - [4.2.1.1.3 ArrayList](#42113-arraylist)
+            - [4.2.1.2 Set](#4212-set)
+                - [4.2.1.2.1 HashSet](#42121-hashset)
+            - [4.2.1.3 Map](#4213-map)
+                - [4.2.1.3.1 Hashtable](#42131-hashtable)
+                - [4.2.1.3.2 HashMap](#42132-hashmap)
+        - [4.2.2 Sorted](#422-sorted)
+            - [4.2.2.1 Comparator](#4221-comparator)
+        - [4.2.3 Comparable](#423-comparable)
+    - [4.3 스트림](#43-스트림)
+        - [4.3.1 연산 함수](#431-연산-함수)
+    - [4.4 Optional - null 처리](#44-optional---null-처리)
+        - [4.4.1 작동 방식](#441-작동-방식)
+            - [4.4.1.1 null 참조 처리 예](#4411-null-참조-처리-예)
+            - [4.4.1.2 Optional 처리의 예](#4412-optional-처리의-예)
+        - [4.4.2 Optional 랩 메서드](#442-optional-랩-메서드)
+            - [4.4.2.1 빈 Optional - Optional.empty](#4421-빈-optional---optionalempty)
+            - [4.4.2.2 null이 아닌 Optional - Optional.of](#4422-null이-아닌-optional---optionalof)
+            - [4.4.2.3 null이 가능한 Optional - Optional.ofNullable](#4423-null이-가능한-optional---optionalofnullable)
+        - [4.4.3 Optional 언랩 메서드](#443-optional-언랩-메서드)
+            - [4.4.3.1 get](#4431-get)
+            - [4.4.3.2 orElse](#4432-orelse)
+            - [4.4.3.3 orElseGet](#4433-orelseget)
+            - [4.4.3.4 orElseThrow](#4434-orelsethrow)
+            - [4.4.3.5 ifPresent](#4435-ifpresent)
+            - [4.4.3.6 ifPresentOrElse](#4436-ifpresentorelse)
+        - [4.4.4 Optional의 체이닝 처리 (스트림)](#444-optional의-체이닝-처리-스트림)
+            - [4.4.4.1 map](#4441-map)
+            - [4.4.4.2 flatMap](#4442-flatmap)
+            - [4.4.4.3 filter](#4443-filter)
+            - [4.4.4.4 stream](#4444-stream)
+    - [4.5 시간](#45-시간)
+        - [4.5.1 클래스](#451-클래스)
+            - [4.5.1.1 LocalDate](#4511-localdate)
+            - [4.5.1.2 LocalTime](#4512-localtime)
+            - [4.5.1.3 LocalDateTime](#4513-localdatetime)
+            - [4.5.1.4 Instant](#4514-instant)
+            - [4.5.1.5 Duration, Period](#4515-duration-period)
+        - [4.5.2 공통 메서드](#452-공통-메서드)
 
 
-# 3. Java 문법
+# 4. Java 문법
 
-## 3.0 Java 기초
-### 3.0.1 OOP 특징
+## 4.0 Java 기초
+### 4.0.1 OOP 특징
 1. 캡슐화
 2. 추상화 
 3. 상속
 4. 다형성
 
-### 3.0.2 OOP 설계 5원칙 SOLID
+### 4.0.2 OOP 설계 5원칙 SOLID
 - 객체 지향 설계시 지켜야할 원칙
 1. SRP(Single Responsibility Principle): 단일 책임 원칙
 2. OCP(Open Closed Priciple): 개방 폐쇄 원칙
@@ -87,28 +87,28 @@
 4. ISP(Interface Segregation Principle): 인터페이스 분리 원칙
 5. DIP(Dependency Inversion Principle): 의존 역전 원칙
 
-### 3.0.3 타입
-### 3.0.3.1 Call by Value
+### 4.0.3 타입
+### 4.0.3.1 Call by Value
 - 기본 타입
     - byte, int, char, boolean ...
     - 변수의 메모리 위치에 바로 값을 가진다.
 
-#### 3.0.3.2 Call by Reference
+#### 4.0.3.2 Call by Reference
 - Array, Object
 - Copy
     - shallow copy
     - deep copy
 
-#### 3.0.3.3 String
+#### 4.0.3.3 String
 - Immutable
 - StringBuffer
     - 수정이 많은 String 사용시, 지향
 
-#### 3.0.3.4 연산된 값
+#### 4.0.3.4 연산된 값
 - getter, setter
 - predicate: boolean 값을 반환하는 함수
 
-### 3.0.4 접근자
+### 4.0.4 접근자
 - public: 접근 제한이 없는
 - private: 클래스 내에서만 접근 가능한
 - protected: 동일한 패키지 또는 파생클래스에서만 접근 가능한
@@ -120,7 +120,7 @@
 - static final: 상수 (고정된 최종)
 - default: 인터페이스에서, 로직을 포함한 메소드 선언 가능한 (기본적인)
 
-### 3.0.5 인터페이스, 클래스, 인스턴스
+### 4.0.5 인터페이스, 클래스, 인스턴스
 - 인터페이스: 객체의 명세
     - 동작의 추상화: 객체의 외부에서 쓰일 메서드들을 모두 작성
     - default 동작: default 접근자로 작성하는 default 로직
@@ -132,18 +132,18 @@
 - 인스턴스: 힙에 올라가는 객체
 
 
-## 3.1 동작 파라미터
+## 4.1 동작 파라미터
 - 구성
     1. 호출 로직 (2번을 호출, 3번을 인자로 사용)
     2. 동작 호출 형식 (함수 디스크립터)
     3. 동작 파라미터 (함수 인터페이스와 구현 vs 람다)
 
-### 3.1.0 메서드
-#### 3.1.0.1 메서드 시그니처
+### 4.1.0 메서드
+#### 4.1.0.1 메서드 시그니처
 - 디자인된 메서드 구조
     - **메서드 명**과 **파라미터 리스트**로 구성
 
-#### 3.1.0.2 메서드 오버로딩
+#### 4.1.0.2 메서드 오버로딩
 - 같은 메서드 명칭이나, 파라미터 리스트가 달라, 
     - 메서드 시그니처가 다른 메서드들
     - 하나의 클래스는 2개의 같은 메서드 시그니처를 가질 수 없다.
@@ -157,8 +157,8 @@ public double square(double x, double y) {
 }
 ```
 
-### 3.1.1 함수형 인터페이스와 구현 클래스
-#### 3.1.1.1 추상적 조건으로 필터링
+### 4.1.1 함수형 인터페이스와 구현 클래스
+#### 4.1.1.1 추상적 조건으로 필터링
 - 전략 패턴
     - 런타임 단계에 논리 구현을 선택
 - 추상적 필터링
@@ -202,7 +202,7 @@ List<Apple> greenApples = filterApples(inventory, new AppleColorPredicate());
     - Ex) 자바 API: Comparator, Runnable, Callabel, PrivilegedAction
 
 
-#### 3.1.1.2 익명 클래스
+#### 4.1.1.2 익명 클래스
 - 이름 없는 클래스
 - 지역 클래스
 - 클래스 선언과 인스턴스화를 동시에 진행
@@ -217,7 +217,7 @@ List<Apple> greenApples = filterApples(inventory, new ApplePredicate(){
 ```
 
 
-### 3.1.2 람다
+### 4.1.2 람다
 - 익명 함수를 단순화한 것
 - 함수형 인터페이스의 추상 메서드를 직접 구현함으로써,
     - 람다의 전체 표현식을 함수형 인터페이스를 구현한 클래스의 인스턴스로 취급
@@ -226,7 +226,7 @@ List<Apple> greenApples = filterApples(inventory, (Apple apple) -> GREEN.equals(
 ```
 
 
-### 3.1.3 제네릭 Generic
+### 4.1.3 제네릭 Generic
 - 잘못된 타입의 인입을 컴파일 단계에서 방지한다.
 - 클래스 외부에서 타입을 지정하기 때문에, 타입 체크와 변환이 필요 없다.
 - 코드의 재사용성이 높다.
@@ -254,7 +254,7 @@ List<Integer> evenNumbers = filter(numbers, (Integer i) -> i % 2 == 0);
 ```
 
 
-### 3.1.4 함수 디스크립터
+### 4.1.4 함수 디스크립터
 - 람다 표현식의 시그니처를 서술해주는 메서드
 ```java
 // # 함수 디스크립터에 해당 (2.호출되는 함수)
@@ -268,7 +268,7 @@ public void process(Runnable r){
 process(() -> System.out.println("run!"));
 ```
 
-#### 3.1.4.1 기본 제공 함수형 인터페이스 (자바8)
+#### 4.1.4.1 기본 제공 함수형 인터페이스 (자바8)
 - `Predicate<T>`
     - `T -> boolean`
     - 참/거짓 단정자
@@ -299,7 +299,7 @@ process(() -> System.out.println("run!"));
     - 이중 기능자
 
 
-### 3.1.5 메서드 참조 ::
+### 4.1.5 메서드 참조 ::
 - 특정 메서드만 호출하는 기능
 ```java
 // java.util.Comparator.comparing 활용
@@ -324,7 +324,7 @@ inventory.sort(comparing(Apple::getWeight)); // 메서드 참조
         - `expensiveTransaction::getValue`
 
 
-#### 3.1.6 생성자 참조
+### 4.1.6 생성자 참조
 ```java
 // # 1. Supplier: () -> Apple 시그니처의 생성자가 있다고 할 때,
 // ## 1-0. 람다 방식
@@ -357,9 +357,9 @@ public List<Apple> map(List<Integer> list, Function<Integer, Apple> f){
 }
 ```
 
-## 3.2 컬렉션
+## 4.2 컬렉션
 
-### 3.2.1 상속 관계
+### 4.2.1 상속 관계
 - Collection
     - List
         - LinkedList
@@ -376,39 +376,39 @@ public List<Apple> map(List<Integer> list, Function<Integer, Apple> f){
     - SortedMap
         - TreeMap
 
-#### 3.2.1.1 List
-##### 3.2.1.1.1 Stack
+#### 4.2.1.1 List
+##### 4.2.1.1.1 Stack
 - 메서드
     - push(): 데이터 삽입
     - pop(): 데이터 추출
     - peek(): 데이터 조회
     - search(): Stack으로부터 데이터 검색
-##### 3.2.1.1.2 Vector
+##### 4.2.1.1.2 Vector
 - 동기화 보장
 - 지양
-##### 3.2.1.1.3 ArrayList
+##### 4.2.1.1.3 ArrayList
 - 동기화 보장하지 않는다
 - 메서드
     - add(), get(), toArray(), contains(), size()
-#### 3.2.1.2 Set
+#### 4.2.1.2 Set
 - 집합
 - 순서가 없다
 - 중복되지 않는다
-##### 3.2.1.2.1 HashSet
+##### 4.2.1.2.1 HashSet
 - 메서드
     - add(), next(), remove(), contains(), size()
-#### 3.2.1.3 Map
+#### 4.2.1.3 Map
 - key value 쌍의 리스트
 - key는 중복되지 않는다
 - 메서드
     - put(), get()
-##### 3.2.1.3.1 Hashtable
+##### 4.2.1.3.1 Hashtable
 - 동기화 보장
 - 지양
-##### 3.2.1.3.2 HashMap
+##### 4.2.1.3.2 HashMap
 - 동기화 보장하지 않는다
 
-### 3.2.2 Sorted
+### 4.2.2 Sorted
 - Set
     - SortedSet
         - TreeSet
@@ -416,7 +416,7 @@ public List<Apple> map(List<Integer> list, Function<Integer, Apple> f){
     - SortedMap
         - TreeMap
 
-#### 3.2.2.1 Comparator
+#### 4.2.2.1 Comparator
 - sort시, Comparator를 구현하여, 정렬의 방식을 지정할 수 있다.
     - 오름차순, return 값의 양수가 후순위
 - `compare(T o1, T o2)`
@@ -442,7 +442,7 @@ Arrays.sort(classList, (ClassName o1, ClassName o2) -> Integer.compare(o1.score,
 - [Spec: java.util > Interface Comparator<T>](docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#method.summary)
 
 
-### 3.2.3 Comparable
+### 4.2.3 Comparable
 - Comparable을 구현하여, 우위 방식을 구현할 수 있다.
 - `compareTo(T o)`
 ```java
@@ -459,7 +459,7 @@ public class ClassName implements Comparable<Type> {
 
 
 
-## 3.3 스트림
+## 4.3 스트림
 - 데이터 처리 연산을 지원하는 소스에서 추출된 연속된 요소
 - 특징
     1. 연속된 요소
@@ -482,7 +482,7 @@ public class ClassName implements Comparable<Type> {
     - 순차 `stream()`
     - 병렬 `parallelStream()`
         - 멀티스레드로 구현하지 않고, 병렬로 데이터 처리 가능
-### 3.3.1 연산 함수
+### 4.3.1 연산 함수
 - filter
     - return을 boolean 값으로, 해당 element 필터링 여부 결정
 - sorted
@@ -512,7 +512,7 @@ List<String> lowCaloricDishesName = menu.parallelStream()
 
 
 
-## 3.4 Optional - Null 처리
+## 4.4 Optional - Null 처리
 - java.util.Optional<T>
 - `null` 참조
     - `null` 참조는 `NullPointerException`을 일으킨다.
@@ -524,7 +524,7 @@ List<String> lowCaloricDishesName = menu.parallelStream()
     - js의 `?.`, 하스켈의 `Maybe`와 같은 역할
     - cf) Option[T]
 
-### 3.4.1 작동 방식
+### 4.4.1 작동 방식
 ![Java_Optional_Car](./Docs-Ref/img_Java_Optional.PNG)
 - `Optional` 객체는 값을 감싼다.
 - 값이 없다면, `Optional.empty` 메서드가 빈 `Optional`을 반환한다.
@@ -533,7 +533,7 @@ List<String> lowCaloricDishesName = menu.parallelStream()
     - `Optional`은 **의도적으로 값이 없을 수 있다**는 것을 명시적으로 보여준다.
 
 
-#### 3.4.1.1 null 참조 처리 예
+#### 4.4.1.1 null 참조 처리 예
 ```java
 // 클래스 부분 생략
 // 처리 부분
@@ -553,7 +553,7 @@ public String getCarInsuranceName(Person person){
     // 만약, if문 중에 null 처리를 한곳이라도 안해준다면, 반드시 에러가 발생한다.
 }
 ```
-#### 3.4.1.2 Optional 처리의 예
+#### 4.4.1.2 Optional 처리의 예
 ```java
 // 클래스
 public class Person{
@@ -588,25 +588,25 @@ public String getCarInsuranceName(Optional<Person> person)
 
 
 
-### 3.4.2 Optional 랩 메서드
+### 4.4.2 Optional 랩 메서드
 - Optional.empty()
 - Optional.of()
 - Optional.ofNullable()
 
-#### 3.4.2.1 빈 Optional - Optional.empty
+#### 4.4.2.1 빈 Optional - Optional.empty
 - 비어있음을 의도적으로 표현
 ```java
 Optional<Car> maybeCar = Optional.empty();
 ```
 
-#### 3.4.2.2 null이 아닌 Optional - Optional.of
+#### 4.4.2.2 null이 아닌 Optional - Optional.of
 - null이 될 수 없음을 표현
 - null이라면, NullPointerException을 발생
 ```java
 Optional<Car> maybeCar = Optional.of(car);
 ```
 
-#### 3.4.2.3 null이 가능한 Optional - Optional.ofNullable
+#### 4.4.2.3 null이 가능한 Optional - Optional.ofNullable
 - null이 가능
 - null 이라면, 빈 Optional을 반환
 ```java
@@ -614,7 +614,7 @@ Optional<Car> maybeCar = Optional.ofNullable(car);
 ```
 
 
-### 3.4.3 Optional 언랩 메서드
+### 4.4.3 Optional 언랩 메서드
 - get
 - orElse
 - orElseGet
@@ -622,40 +622,40 @@ Optional<Car> maybeCar = Optional.ofNullable(car);
 - ifPresent
 - ifPresentOrElse
 
-#### 3.4.3.1 get
+#### 4.4.3.1 get
 - 랩핑된 값을 반환
 - 값이 없다면, NoSuchElementException
 - 가장 간단하지만, 안전하지 않은 메서드
 - Optional에 반드시 값이 있다고 가정하지 않는 이상 지양
     - null 처리와 다를바가 없다.
-#### 3.4.3.2 orElse
+#### 4.4.3.2 orElse
 - orElse(T other)
 - 값이 없을 때, 기본값을 제공
     - other은 반환되지 않을 수 있을 뿐, 반드시 만들어 놓는다.
     - other에 entity 사용시/고비용시, orElseGet을 사용한다.
-#### 3.4.3.3 orElseGet
+#### 4.4.3.3 orElseGet
 - orElseGet(Supplier<? extends T> other)
 - orElse의 lazy 버전
     - 값이 없을때만, Supplier를 실행
         - 디폴트 메서드를 만드는 데 시간이 소모되거나(효율성),
         - Optional이 비어있을 때만, 기본값을 생성해야 할 때 사용
-#### 3.4.3.4 orElseThrow
+#### 4.4.3.4 orElseThrow
 - orElseThrow(Supplier<? extends X> exceptionSupplier)
 - Optional이 비어있다면, exceptionSupplier를 통해 예외를 발생시킨다
     - 발생시킬 예외를 선택할 수 있다.
-#### 3.4.3.5 ifPresent
+#### 4.4.3.5 ifPresent
 - ifPresent(Consumer<? super T> consumer)
 - 값이 존재할 때, consumer를 실행
 - 값이 없다면 아무일도 일어나지 않는다
-#### 3.4.3.6 ifPresentOrElse
+#### 4.4.3.6 ifPresentOrElse
 - ifPresentOrElse(Consumer<? super T> consumer, Runnable emptyAction)
 - Optional이 비었을 때, 받은 Runnable 인수를 실행한다.
 
 
 
 
-### 3.4.4 Optional의 체이닝 처리 (스트림)
-#### 3.4.4.1 map
+### 4.4.4 Optional의 체이닝 처리 (스트림)
+#### 4.4.4.1 map
 - Optional은 맵 사용 가능
 - Optional은 요소 개수가 한 개 이하인 데이터 컬렉션
 ```java
@@ -663,7 +663,7 @@ Optional<Insurance> maybeInsurance = Optional.ofNullable(insurance);
 Optional<String> name = maybeInsurance.map(Insurance::getName);
 ```
 
-#### 3.4.4.2 flatMap
+#### 4.4.4.2 flatMap
 - Optional안의 Optional 구조의 경우, map의 중첩이 불가능하다.
 ```java
 Optional<Person> maybePerson = Optional.of(person);
@@ -684,17 +684,17 @@ public String getCarInsuranceName(Optional<Person> person)
 - 순차적으로, person이 `flatMap`에 의해 `Optional<Person>`>`Optional<Car>`>`Optional<Insurance>` 로 변환되며 스트림이 진행된다.
 - 만일, 도중 비어있다면, `Optional.empty`를 이후부터 반환한다.
 
-#### 3.4.4.3 filter
+#### 4.4.4.3 filter
 - filter(Predicate<? extends T> predicate)
 - 값이 존재하고 Predicate에 알맞다면, Optional을 반환
 - 값이 존재하지 않거나 Predicate에 맞지 않다면, 빈 Optional 반환
 
-#### 3.4.4.4 stream
+#### 4.4.4.4 stream
 - 값이 존재하면, 존재하는 값만 포함하는 스트림을 반환
 
 
 
-## 3.5 시간
+## 4.5 시간
 - java.time 패키지를 사용한다.
     - 불변 객체
         - 스레드 안전성과 도메인 모델의 일관성을 유지하기 위해
@@ -702,7 +702,7 @@ public String getCarInsuranceName(Optional<Person> person)
     - 날짜와 시간 계산이 난해하다.
     - 불변 객체가 아니다.
 
-### 3.5.1 클래스
+### 4.5.1 클래스
 - LocalDate
 - LocalTime
 - LocalDateTime
@@ -710,7 +710,7 @@ public String getCarInsuranceName(Optional<Person> person)
 - Duration
 - Period
 
-#### 3.5.1.1 LocalDate
+#### 4.5.1.1 LocalDate
 - 연도, 달, 요일 등을 반환
 ```java
 LocalDate date = LocalDate.of(1993, 4, 9);  // 1993-04-09의 LocalDate 객체
@@ -724,7 +724,7 @@ boolean leap = date.isLeapYear();           //true (윤년)
 
 LocalDate today = LocalDate.now();          //오늘 데이터의 LocalDate 객체
 ```
-#### 3.5.1.2 LocalTime
+#### 4.5.1.2 LocalTime
 ```java
 LocalTime time = LocalTime.of(13, 45, 20);  // 13:45:20의 LocalTime 객체
 int hour = time.getHour();                  // 13
@@ -732,7 +732,7 @@ int minute = time.getMinute();              // 45
 int second = time.getSecond();              // 20
 ```
 
-#### 3.5.1.3 LocalDateTime
+#### 4.5.1.3 LocalDateTime
 - LocalDate + LocalTime
 ```java
 // 2017-09-21T13:45:20
@@ -745,13 +745,13 @@ LocalDateTime dt5 = date.atDate(date);
 LocalDate date = dt1.toLocalDate();
 LocalTime time = dt1.toLocalTime();
 ```
-#### 3.5.1.4 Instant
+#### 4.5.1.4 Instant
 - java.time.Instant
 - 기계 날짜 시간(Unix epoch time 1970-01-01T00:00:00UTC 기준의 초)
 - 나노초(10억분의 1)의 정밀도
 - ofEpochSecond
 
-#### 3.5.1.5 Duration, Period
+#### 4.5.1.5 Duration, Period
 - 두 시간 객체 사이의 지속시간 클래스
 ```java
 //
@@ -770,7 +770,7 @@ Period threeWeeks = Period.ofWeeks(3);
 Period twoYearsSixMonthsOneDay = Period.of(2, 6, 1);
 ```
 
-### 3.5.2 공통 메서드
+### 4.5.2 공통 메서드
 - 정적
     1. now
         - 시스템 시계로 Temporal 객체 생성
