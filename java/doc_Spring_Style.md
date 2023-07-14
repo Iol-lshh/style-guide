@@ -1,37 +1,37 @@
 > [Home](../README.md)
 
-- [5. SpringBoot](#5-springboot)
-    - [5.0 Spring](#50-spring)
-        - [5.0.1 특징](#501-특징)
-        - [5.0.2 SpringBoot](#502-springboot)
-    - [5.1 gradle](#51-gradle)
-        - [5.1.1 버전](#511-버전)
-        - [5.1.2 의존성](#512-의존성)
-    - [5.2 설정 관리](#52-설정-관리)
-    - [5.3 컴포넌트](#53-컴포넌트)
-        - [5.3.1 controller](#531-controller)
-        - [5.3.2 service](#532-service)
-    - [5.4 domain 컴포넌트](#54-domain-컴포넌트)
-        - [5.4.0 dto](#540-dto)
-        - [5.4.1 JPA](#541-jpa)
-            - [5.4.1.0 설정](#5410-설정)
-            - [5.4.1.1 entity](#5411-entity)
-                - [5.4.1.1.1 관계](#54111-관계)
-            - [5.4.1.2 repository](#5412-repository)
-    - [5.5 queryFactory](#55-queryfactory)
-        - [5.5.1 QueryFactory](#551-queryfactory)
-            - [5.5.1.1 plain text query](#5511-plain-text-query)
-            - [5.5.1.2 User Saved Procedure](#5512-user-saved-procedure)
-            - [5.5.1.3 MyBatis](#5513-mybatis)
-        - [5.5.2 QueryStatement](#552-querystatement)
-            - [5.5.2.1 TextQueryStatement](#5521-textquerystatement)
-            - [5.5.2.2 ProcedureQueryStatement](#5522-procedurequerystatement)
-            - [5.5.2.3 MyBatisQueryStatement](#5523-mybatisquerystatement)
+- [SpringBoot](#springboot)
+- [0. Spring](#0-spring)
+    - [0.1 특징](#01-특징)
+    - [0.2 SpringBoot](#02-springboot)
+- [1. gradle](#1-gradle)
+    - [1.1 버전](#11-버전)
+    - [1.2 의존성](#12-의존성)
+- [2. 설정 관리](#2-설정-관리)
+- [3. 컴포넌트](#3-컴포넌트)
+    - [3.1 controller](#31-controller)
+    - [3.2 service](#32-service)
+- [4. domain 컴포넌트](#4-domain-컴포넌트)
+    - [4.0 dto](#40-dto)
+    - [4.1 JPA](#41-jpa)
+        - [4.1.0 설정](#410-설정)
+        - [4.1.1 entity](#411-entity)
+            - [4.1.1.1 관계](#4111-관계)
+        - [4.1.2 repository](#412-repository)
+- [5. queryFactory](#5-queryfactory)
+    - [5.1 QueryFactory](#51-queryfactory)
+        - [5.1.1 plain text query](#511-plain-text-query)
+        - [5.1.2 User Saved Procedure](#512-user-saved-procedure)
+        - [5.1.3 MyBatis](#513-mybatis)
+    - [5.2 QueryStatement](#52-querystatement)
+        - [5.2.1 TextQueryStatement](#521-textquerystatement)
+        - [5.2.2 ProcedureQueryStatement](#522-procedurequerystatement)
+        - [5.2.3 MyBatisQueryStatement](#523-mybatisquerystatement)
 
 
-# 5. SpringBoot
-## 5.0 Spring
-## 5.0.1 특징
+# SpringBoot
+## 0. Spring
+## 0.1 특징
 1. 간단한 자바 오브젝트 POJO Plain Old Java Object
     - 경량, 적은 의존성, 추상화로 재활용성이 좋다.
     1. 서비스 추상화 PSA - Portable Service Abstraction
@@ -48,7 +48,7 @@
 6. MVC 모델-뷰-컨트롤러 패턴 지원
 7. 배치 프레임워크 지원(Quartz 기반)
 
-## 5.0.2 SpringBoot
+## 0.2 SpringBoot
 - 스프링에 필수적인 의존성들을 얹힌 것
     1. 자주 사용되는 라이브러리들의 버전 관리 자동화
     2. AutoConfig로 복잡한 설정 자동화
@@ -56,9 +56,9 @@
     4. 실행 가능한 JAR로 개발 가능
 
 
-## 5.1 gradle
+# 1. gradle
 - [build.gradle](../build.gradle)에 수록
-### 5.1.1 버전
+## 1.1 버전
 ```gradle
 plugins {
 	id 'java'
@@ -70,7 +70,7 @@ group = 'chunjae'
 sourceCompatibility = '17'
 ```
 
-### 5.1.2 의존성
+## 1.2 의존성
 ```gradle
 implementation 'org.springframework.boot:spring-boot-starter-data-rest'
 implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'	
@@ -88,21 +88,21 @@ annotationProcessor 'org.projectlombok:lombok'
 testImplementation 'org.springframework.boot:spring-boot-starter-test'
 ```
 
-## 5.2 설정 관리
+# 2. 설정 관리
 - [application.yml](../src/main/resources/application.yml)에 수록
 - yml 확장자 방식 적용
 - 필요시, 적확한 이름의 설정 파일 추가 관리
 - 싱글톤 컴포넌트에서의 `@Value` 활용 지향
 
-## 5.3 컴포넌트
-### 5.3.1 controller
+# 3. 컴포넌트
+## 3.1 controller
 - `@RestController`
     - `org.springframework.web.bind.annotation.RestController`
 - 서비스 `@Autowired` 활용
     - DI 요소가 다형성을 갖는다면, 생성자를 통한 DI를 활용한다.
 
 
-### 5.3.2 service
+## 3.2 service
 - `@Service`
     - `org.springframework.stereotype.Service`
 - 반드시, 인터페이스와 구현체로 분리한다.
@@ -169,15 +169,15 @@ public class HomeServiceImpl implements HomeService{
     - 설정 상수는 `@Value`를 이용하여, .yml에 작성
 
 
-## 5.4 domain 컴포넌트
-### 5.4.0 dto
+# 4. domain 컴포넌트
+## 4.0 dto
 - Request를 위해 이용될 경우, `@JsonProperty`를 활용한다.
     - `com.fasterxml.jackson.annotation.JsonProperty`
 - 불변성을 지향한다.
     - Setter 함수를 구현하지 않는 것도 한가지 방법
 
-### 5.4.1 JPA
-#### 5.4.1.0 설정
+## 4.1 JPA
+### 4.1.0 설정
 - 반드시, ddl-auto를 비활성화한다.
 - 물리 전략을 이용한다. 
 ```yml
@@ -194,7 +194,7 @@ spring:
                 use_sql_comments: true
 ```
 
-#### 5.4.1.1 entity
+### 4.1.1 entity
 - `@Entity`
     - `jakarta.persistence.Entity`
 - 테이블 명을 명시한다.
@@ -249,7 +249,7 @@ public class LcmsNotice {
 }
 ```
 
-##### 5.4.1.1.1 관계
+#### 4.1.1.1 관계
 - Lazy 전략을 지향한다.
     - 서비스 단에서, `@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_UNCOMMITTED)` 트랜잭션 사용을 추천한다.
         - 전파: 필요함 (없을 경우, 트랜잭션 생성)
@@ -281,7 +281,7 @@ public class LoopAssign {
 }
 ```
 
-#### 5.4.1.2 repository
+### 4.1.2 repository
 - `JpaRepository<엔티티명, 엔티티 식별자id 타입>`
     - `org.springframework.data.jpa.repository.JpaRepository`
 - entity 조회시, 기본적으로 Optional로 받는다.
@@ -307,31 +307,31 @@ public LcmsNotice update(LcmsNoticeDto dto, List<String> ff) throws NoSuchElemen
 }
 ```
 
-## 5.5 queryFactory
+# 5. queryFactory
 - 다음 세가지 방식의 DB 요청을 지원한다.
     - plain text query - 일반 텍스트 쿼리
     - User Saved Procedure - 사용자 저장 프로시저
     - MyBatis
 
-### 5.5.1 QueryFactory
+## 5.1 QueryFactory
 - `chunjae.api.common.queryFactory.QueryFactory`
 - 작성할 쿼리문에 대한 객체를 생성해준다.
     - 설정을 갖는다.
 - `BasicQueryFactory`로 구현된다.
 
-#### 5.5.1.1 plain text query
+### 5.1.1 plain text query
 - `createTextStatement()`
 - `common.queryFactory.TextQueryStatement`를 반환한다.
 
-#### 5.5.1.2 User Saved Procedure
+### 5.1.2 User Saved Procedure
 - `createProcedureStatement()`
 - `common.queryFactory.ProcedureQueryStatement`를 반환한다.
 
-#### 5.5.1.3 MyBatis
+### 5.1.3 MyBatis
 - `createMyBatisStatement()`
 - `common.queryFactory.MyBatisQueryStatement`를 반환한다.
 
-### 5.5.2 QueryStatement
+## 5.2 QueryStatement
 - `chunjae.api.common.queryFactory.QueryStatement`
 - 쿼리문을 작성하는 객체
 - 구현체를 통해 세부 방법이 나뉘며, 해당 방법을 통해 데이터베이스와 연결된다.
@@ -384,7 +384,7 @@ public interface QueryStatement {
 ```
 
 
-#### 5.5.2.1 TextQueryStatement
+### 5.2.1 TextQueryStatement
 - `chunjae.api.common.queryFactory.TextQueryStatement`
 - 일반 텍스트 문자열로 쿼리를 주어 실행한다.
 - 지원하는 `PropertyName`은 다음과 같다.
@@ -398,13 +398,13 @@ queryFactory
     .queryScalar();
 ```
 
-#### 5.5.2.2 ProcedureQueryStatement
+### 5.2.2 ProcedureQueryStatement
 - `chunjae.api.common.queryFactory.ProcedureQueryStatement`
 - 프로시저 명을 주어 실행한다.
 - 지원하는 `PropertyName`은 다음과 같다.
     - `SP_NAME`: 실행할 프로시저 명
 
-#### 5.5.2.3 MyBatisQueryStatement
+### 5.2.3 MyBatisQueryStatement
 - `chunjae.api.common.queryFactory.MyBatisQueryStatement`
 - MyBatis용 json 파일을 가져와 실행한다.
 - 지원하는 `PropertyName`은 다음과 같다.

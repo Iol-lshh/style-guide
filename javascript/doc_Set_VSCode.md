@@ -1,21 +1,21 @@
 > [Home](../README.md)
 
-- [0.1. IDE](#01-ide-세팅)
-    - [0.1.1. Extensions](#011-extensions)
-        - [0.1.1.1. C#](#0111-c)
-        - [0.1.1.2. Vue Volar extension Pack](#0112-vue-volar-extension-pack) 
-- [0.2. 소스 가져오기](#02-소스-가져오기)
-    - [0.2.1. Git 설치](#021-git-설치)
-    - [0.2.2. SSL 설정](#022-ssl-설정)
-    - [0.2.3. Git 이메일, 이름 등록](#023-git-이메일-이름-등록)
-    - [0.2.4. Git으로 소스 복제](#024-git으로-소스-복제)
+- [1. IDE](#1-ide-세팅)
+    - [1.1. Extensions](#11-extensions)
+        - [1.1.1. C#](#111-c)
+        - [1.1.2. Vue Volar extension Pack](#112-vue-volar-extension-pack) 
+- [2. 소스 가져오기](#2-소스-가져오기)
+    - [2.1. Git 설치](#21-git-설치)
+    - [2.2. SSL 설정](#22-ssl-설정)
+    - [2.3. Git 이메일, 이름 등록](#23-git-이메일-이름-등록)
+    - [2.4. Git으로 소스 복제](#24-git으로-소스-복제)
 
-# 0.1. IDE 세팅
+# 1. IDE 세팅
 - 명칭: Visual Studio Code
 
-## 0.1.1. Extensions
+## 1.1. Extensions
 
-### 0.1.1.1. C#
+### 1.1.1. C#
     - Name: C#
     - Id: ms-dotnettools.csharp
     - Description: C# for Visual Studio Code (powered by OmniSharp).
@@ -29,7 +29,7 @@
 3. C# 플러그인 설치
 
 
-### 0.1.1.2. Vue Volar extension Pack
+### 1.1.2. Vue Volar extension Pack
     - Name: Vue Language Features (Volar)
     - Id: Vue.volar
     - Description: Language support for Vue 3
@@ -60,17 +60,17 @@
 2. vue 검색
 3. Vue Volar extension Pack 플러그인 설치
    
-# 0.2. 소스 가져오기
-## 0.2.1. Git 설치
+# 2. 소스 가져오기
+## 2.1. Git 설치
 [Git Download Link](https://git-scm.com/download/win)
 
-## 0.2.2. SSL 설정
+## 2.2. SSL 설정
 ```bash
 # SSL 설정
 git config --global http.sslbackend schannel
 ```
 
-## 0.2.3. Git 이메일, 이름 등록
+## 2.3. Git 이메일, 이름 등록
 ```bash
 # 이름 확인
 git config user.name
@@ -80,7 +80,7 @@ git config user.email
 git config --global user.email <이메일>
 ```
 
-## 0.2.4. Git으로 소스 복제
+## 2.4. Git으로 소스 복제
 ```bash
 # 클론
 git clone https://git-pms.milkt.co.kr/milkt-core/vue-style-guide.git

@@ -1,32 +1,32 @@
 > [Home](../README.md)
 
-- [5. Vue.js 작성 가이드](#5-vuejs-작성-가이드)
-    - [5.1 기본 구성](#51-기본-구성)
-    - [5.2 vue.common.js 활용](#52-vuecommonjs-활용)
-        - [5.2.1 공통 컴포넌트 및 함수 등록](#521-공통-컴포넌트-및-함수-등록)
-    - [5.3 라우터의 활용](#53-라우터의-활용)
-        - [5.3.1 라우터의 구조](#531-라우터의-구조)
-        - [5.3.2 setup](#532-setup)
-            - [5.3.2.1 reactive](#5321-reactive)
-            - [5.3.2.2 ref](#5322-ref)
-            - [5.3.2.3 route](#5323-route)
-            - [5.3.2.4 router](#5324-router)
-    - [5.4 axios](#54-axios)
-        - [5.4.1 비동기 API 호출](#541-비동기-api-호출)
-        - [5.4.2 axios 확장 함수](#542-axios-확장-함수)
-        - [5.4.3 axios 요청 전 실행 함수](#543-axios-요청-전-실행-함수)
-        - [5.4.4 axios 응답 후 실행 함수](#544-axios-응답-후-실행-함수)
-    - [5.5 인증/인가 함수](#55-인증인가-함수)
-    - [5.6 Spinner](#56-spinner)
-    - [5.7 xlsx](#57-xlsx)
+- [Vue.js 작성 가이드](#vuejs-작성-가이드)
+    - [1. 기본 구성](#1-기본-구성)
+    - [2. vue.common.js 활용](#2-vuecommonjs-활용)
+        - [2.1 공통 컴포넌트 및 함수 등록](#21-공통-컴포넌트-및-함수-등록)
+    - [3. 라우터의 활용](#3-라우터의-활용)
+        - [3.1 라우터의 구조](#31-라우터의-구조)
+        - [3.2 setup](#32-setup)
+            - [3.2.1 reactive](#321-reactive)
+            - [3.2.2 ref](#322-ref)
+            - [3.2.3 route](#323-route)
+            - [3.2.4 router](#324-router)
+    - [4. axios](#4-axios)
+        - [4.1 비동기 API 호출](#41-비동기-api-호출)
+        - [4.2 axios 확장 함수](#42-axios-확장-함수)
+        - [4.3 axios 요청 전 실행 함수](#43-axios-요청-전-실행-함수)
+        - [4.4 axios 응답 후 실행 함수](#44-axios-응답-후-실행-함수)
+    - [5. 인증/인가 함수](#5-인증인가-함수)
+    - [6. Spinner](#6-spinner)
+    - [7. xlsx](#7-xlsx)
 
-# 5. Vue.js 작성 가이드
-## 5.1 기본 구성
+# Vue.js 작성 가이드
+# 1. 기본 구성
 - vue.js 버전은 3.0 이상을 이용한다.
 - 2.7에서 사용되던 data, mounted, watch, computed 등은 setup 함수 내에서 구현한다.
 - ajax 통신은 axios를 이용한다.
 
-## 5.2 vue.common.js 활용
+# 2. vue.common.js 활용
 - `/Content/Js/vue.common.js` 파일은 vue.js로 개발하면서 발생하는 전역변수(전역함수) 및 전역 컴포넌트 등을 담는다.
 
 - `gfPaging` [컴포넌트]: 게시판 페이징 구현에 사용하는 공통 컴포넌트
@@ -35,7 +35,7 @@
 - `gfTrySubmit` [함수]: submit form을 시도하는 공통 함수
 - `gfSubmitForm` [함수]: 파일 전송을 제공하는 submit form 공통 함수
 
-### 5.2.1 공통 컴포넌트 및 함수 등록
+## 2.1 공통 컴포넌트 및 함수 등록
 - vue.js에서 사용하고자 하는 기본 함수는 Vue 객체로 부터, 구조분해 할당을 통해, import 한다.
 ```javascript
 const { createApp, onMounted, onUpdated, ref, reactive, computed, watchEffect } = Vue;
@@ -51,11 +51,11 @@ function gfFileUploadAndDataSend(url, arg) {
 }
 ```
 
-## 5.3 라우터의 활용
+# 3. 라우터의 활용
 - 라우터란 실제 페이지 이동이 없이 `History.State`를 변경하며 동작한다.
 - URL 별로 Template가 출력된다.
 
-### 5.3.1 라우터의 구조
+## 3.1 라우터의 구조
 ```javascript
 const router = createRouter({       // 라우터를 선언한다.
     history: createWebHistory(),    // createWebHistory 메소드는 일반 URL 패턴을 대체하여 동작된다.
@@ -108,13 +108,13 @@ const router = createRouter({       // 라우터를 선언한다.
 })
 ```
 
-### 5.3.2 setup
+## 3.2 setup
 - 2.7 버전과 다르게 3.0 버전에서는 `setup()`에서 모두 선언 가능하다.
 - setup 내부에서 onMounted, onUpdated, watch와 같은 기존 뷰 메서드를 실행한다.
 - 변수/메서드를 리턴하여 Template에서 이용할 수 있다.
 
 
-#### 5.3.2.1 reactive
+### 3.2.1 reactive
 - reactive는 연관 배열(또는 일반 배열) 형식의 값을 리턴할 때 사용한다.
 
 ```javascript
@@ -136,7 +136,7 @@ setup: function(props) {
 }
 ```
 
-#### 5.3.2.2 ref
+### 3.2.2 ref
 - ref는 reactive와 동일한 기능이나, 모든 타입의 속성을 포함할 수 있다.
 
 ```javascript
@@ -158,7 +158,7 @@ const content = $this?.value?.Content ?? "";
 </tr>
 ```
 
-#### 5.3.2.3 route
+### 3.2.3 route
 - `route()`는 라우터에 보낸 파라미터 정보를 받아올 수 있다.
 
 ```javascript
@@ -173,7 +173,7 @@ const key = $route.query.key ?? "";
 const val = $route.query.val ?? "";
 ```
 
-#### 5.3.2.4 router
+### 3.2.4 router
 - 다른 라우터로 이동시, `router()`를 이용한다.
 
 ```javascript
@@ -191,10 +191,10 @@ function mfView() {
 }
 ```
 
-## 5.4 axios
+# 4. axios
 - API로부터 JSON 데이터를 받을 때 사용한다.
 
-### 5.4.1 비동기 API 호출
+## 4.1 비동기 API 호출
 
 ```javascript
 axios
@@ -207,7 +207,7 @@ axios
         alert(e);
     });
 ```
-### 5.4.2 axios 확장 함수
+## 4.2 axios 확장 함수
 - [/Content/Js/vue.common.js](../Web/Content/Js/vue.common.js)
 - 로그인 관련 함수들을 추가
 
@@ -220,7 +220,7 @@ axios
 - `axios.logoutUser(url)`
     - username을 통한 Refresh 토큰 폐기 요청 (전체 로그아웃)
 
-### 5.4.3 axios 요청 전 실행 함수
+## 4.3 axios 요청 전 실행 함수
 ```javascript
     axios.interceptors.request.use(
         // 요청 전, 실행
@@ -235,7 +235,7 @@ axios
       );
 ```
 
-### 5.4.4 axios 응답 후 실행 함수
+## 4.4 axios 응답 후 실행 함수
 ```javascript
     axios.interceptors.response.use(
         // 응답 후, 실행
@@ -254,7 +254,7 @@ axios
     );
 ```
 
-## 5.5 인증/인가 함수
+# 5. 인증/인가 함수
 - `gfSetAxiosAccessHeader()`
     - 쿠키의 A_T(Access 토큰)를 Axios의 default header에 등록
     - [axios 요청 전 함수](#543-axios-요청-전-실행-함수)에서 사용
@@ -269,19 +269,51 @@ axios
     - Access 만료로 실패시, Refresh를 자동으로 요청하고, 다시 Request
     - [axios 응답 후 함수](#544-axios-응답-후-실행-함수)에서 사용
 
-## 5.6 Spinner
+# 6. Spinner
 - axios로 데이터 처리시 등의 처리 딜레이가 발생하는 경우, progress bar를 출력한다.
 
 ![img_Progress_Bar](./Docs-Ref/img_Progress_Bar.PNG)
 
 ```javascript
-gfSpinner();    // 소스코드에서 axios 동작 직전에 호출한다.
-
+// 소스코드에서 axios 동작 직전에 호출한다.
+gfSpinner();
 axios
     .post("http://localhost:9090/home/jsonView", { "idx": idx })
     .then(
         // ~~
 ```
+## 6.1 v-cloak
+- v-cloak 적용시, vue가 데이터가 적용 되기 전까지, 지정한 스타일을 따르게 한다.
+```css
+[v-clock] {
+  display: none;
+}
+```
+```HTML
+<div v-if="false" v-cloak>TEST</div>
+```
+```javascript
+function gfSpinner()
+{
+    const spinner = document.getElementsByClassName("spinner-grow")[0];
 
-## 5.7 xlsx
+    axios.interceptors.request.use(function (config) {
+        spinner.style.display = "block";
+        return config;
+    }, function (error) {
+        spinner.style.display = "none";
+        return Promise.reject(error);
+    });
+
+    axios.interceptors.response.use(function (response) {
+        spinner.style.display = "none";
+        return response;
+    }, function (error) {
+        spinner.style.display = "none";
+        return Promise.reject(error);
+    });
+}
+```
+
+## 7. xlsx
 - `https://cdnjs.com/libraries/xlsx`
