@@ -142,6 +142,20 @@ docker container run --mount type=bind,source=$source,target=$target -d -p 8012:
 - 애플리케이션이 데이터를 볼륨에 영구적으로 저장한다.
 - 도커 엔진이 관여한다.
 
+```sh
+# create the volume in advance
+$ docker volume create --driver local \
+    --opt type=none \
+    --opt device=/home/user/test \
+    --opt o=bind \
+    test_vol
+
+# create on the fly with --mount
+$ docker run -it --rm \
+  --mount type=volume,dst=/container/path,volume-driver=local,volume-opt=type=none,volume-opt=o=bind,volume-opt=device=/home/user/test \
+  foo
+```
+
 - 도커 파일
 ```Dockerfile
 FROM diamol/dotnet-aspnet
