@@ -114,7 +114,7 @@ git merge b
           a1 - a2 - a3
 ```
 
-## squash
+## --squash
 - 억지로 으깨서 한곳에 쑤셔 넣음
     - 모든 커밋 이력들이 하나의 커밋으로 합쳐지며 사라진다.
 1. a 브렌치의 커밋들을 하나의 커밋으로 합쳐 머지
@@ -127,7 +127,7 @@ git commit -m "squash & merge"
 - o - o - H - A - B - Xa
 ```
 
-## reset
+# reset
 ### --mixed
 - `git reset --mixed <HeadName>`
 - default 옵션
