@@ -327,6 +327,7 @@
     - `git clone https://github.com/Iol-lshh/boilerplate.git`
 
 3. 컴포즈 실행
+    - `cd boilerplate/backend/v2/compose`
     - `docker-compose up`
 
 4. 추가 테스트용 인스턴스 로컬 머신에서 실행
