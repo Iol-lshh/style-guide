@@ -246,6 +246,8 @@ app.mount('#user-goal');
 - createApp 으로 vue 객체를 만든다.
     - 때문에 객체 내부의 함수에서 this 사용시, vue 객체의 data를 가져오게 된다.
 
+# 템플릿
+- 콘텐츠 부분
 
 
 

@@ -96,8 +96,65 @@ console.log(proxy3.message2); // world
 ```
 
 
+- set(target, key, receivedvalue)
+```js
+const data = {
+  message: 'Hello!',
+};
+
+const handler = {
+  set(target, key, value){
+    console.log(target);
+    console.log(key);
+    console.log(value);
+  }
+};
+
+const proxy = new Proxy(data, handler);
+proxy.message = 'Hello!!!!!!'
+// {message: "Hello!"}
+// message
+// Hello!!!!
+```
 
 
-# 가상 돔
+- set(target, key, receivedvalue)
+```js
+const data = {
+  message: 'Hello!',
+  longMessage: 'Hello! World!'
+};
+
+const handler = {
+  set(target, key, value){
+    if(key === 'message'){
+      target.longMessage = value + ' World!'
+    }
+    target.message = value;
+  }
+};
+
+const proxy = new Proxy(data, handler);
+proxy.message = 'Hello!!!!!!'
+
+console.log(proxy.longMessage);
+// Hello!!!! World!
+```
+-  리엑트하다.
+
+
+# Vue가 DOM을 업데이트하는 방법
+- Vue는 Virtual Dom을 이용한다.
+
+1. 동적 부분, 플레이스 홀더 보간, 바인딩이 제거되고 실제 값이 삽입된다.
+  - 동작(v-on 이벤트 핸들러)은 DOM에 반영되지 않는다. (렌더링되고 나면 삭제한다.)
+2. 변경사항이 있는 부분에 대해서만 리렌더링한다.
+  - 이전 DOM과 새로운 DOM을 비교한다.
+    - 가상 DOM을 이용
+      - js가 관리
+      - vue 앱에 저장된 데이터 프로퍼티와 해당 컨텐츠를 비교한다.
+        - 새로운 가상 DOM과 기존 가상 DOM을 비교
+        - DOM 간의 차이만 변경
+      
 
 
