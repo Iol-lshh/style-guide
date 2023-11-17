@@ -155,6 +155,6 @@ console.log(proxy.longMessage);
       - vue 앱에 저장된 데이터 프로퍼티와 해당 컨텐츠를 비교한다.
         - 새로운 가상 DOM과 기존 가상 DOM을 비교
         - DOM 간의 차이만 변경
-      
+
 
 
