@@ -40,7 +40,7 @@ methods: {
 }
 ```
 
-- FreindContact.vue
+- FriendContact.vue
 ```js
 <template>
     <div>
