@@ -13,7 +13,7 @@
     phone-number="01234 78992"
     v-bind:is-favorite="true"
     v-on:toggle-favorite="togglueFavoriteStatus"
-></freind-contact>
+></friend-contact>
 <friend-contact
     name="Julie Hones"
     phone-number="0987 65431"
@@ -40,7 +40,7 @@ methods: {
 }
 ```
 
-- FriendContact.vue
+- FreindContact.vue
 ```js
 <template>
     <div>
