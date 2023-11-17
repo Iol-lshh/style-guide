@@ -121,3 +121,25 @@ export default{
 
 
 - `emits`: 컴포넌트가 어떠한 시점에 발생시킬 커스텀 이벤트를 정의
+
+
+# 조상 ===> 자식
+- provide, inject
+- 통과하지 못함?
+
+```js
+// 조상에서..
+provide: {
+    topics: [], // data와 코드가 중복
+}
+
+//or 메서드 방식으로 변경하여, 같은 메모리 위치의 객체를 사용하도록 한다
+provide(){
+    return {
+        topics: this.topics, // data를 사용
+    };
+}
+
+// 자식에서..
+inject: ['topics'],
+```
