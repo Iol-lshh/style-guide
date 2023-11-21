@@ -128,9 +128,19 @@ export default{
 - 통과하지 못함?
 
 ```js
+data(){
+    return topics;
+},
+methods: {
+    activateTopic(topicId){
+
+    }
+}
+
 // 조상에서..
 provide: {
-    topics: [], // data와 코드가 중복
+    topics: this.topics, // data와 코드가 중복
+    selectTopic: this.activateTopic
 }
 
 //or 메서드 방식으로 변경하여, 같은 메모리 위치의 객체를 사용하도록 한다
@@ -141,5 +151,5 @@ provide(){
 }
 
 // 자식에서..
-inject: ['topics'],
+inject: ['topics', 'selectTopic'],  // 포인터로 가져온다
 ```
