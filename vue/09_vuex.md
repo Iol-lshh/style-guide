@@ -96,7 +96,7 @@ app.mount('#app');
     - 다만, 전역 상태 관리에 더 유리
 
 # how it works?
-![vuex_works](./src/vuex_works.jpeg)
+![vuex_works](./img/vuex_works.jpeg)
 - vuex와 컴포넌트는 직접 연결되지 않는다.
 ## Mutations 변형(내장)
 - 명확하게 정의된 메서드로 상태를 업데이트하는 기능
@@ -146,7 +146,7 @@ methods: {
 
 ## Getter
 - 데이터를 직접 가져오는 것도 바람직하지 못하다.
-![getter](./src/getter.jpeg)
+![getter](./img/getter.jpeg)
 
 - main.js
 ```js

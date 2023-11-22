@@ -1,5 +1,5 @@
 # 생명주기
-![lifecycle.jpeg](./src/lifecycle.jpeg)
+![lifecycle.jpeg](./img/lifecycle.jpeg)
 ## 초기화
 0. createApp
     - 앱 실행
