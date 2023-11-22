@@ -201,11 +201,18 @@ scrollBehavior(to, from, savedPosition){
 - 인증과 관련
 - 페이지 변화 감지
 - 사용자가 양식을 저장하지 않고 실수로 나가는 것을 방지해주기도 한다
+    - to: 이동할 페이지의 라우트 객체
+    - from: 이전 페이지의 라우트 객체
+    - next: 네비게이션 동작을 승인하거나 취소할때, 호출하는 함수
+- 네비게이션 가드는 범위에 따라 세가지이며, 다음 **실행 순서**는 다음과 같다. (전역 > 지역) 
+    0. 컴포넌트를 떠날때 (컴포넌트의 beforeRouteLeave)
+    0. 컴포넌트 떠나는 것이 승인되었을 때 (global afterEach) 
+    1. 전역 네비게시션 가드(global beforeEach)
+    2. 라우트 구성 수준 네비게이션 가드(라우트의 beforeEnter)
+    3. 컴포넌트 수준(컴포넌트의 beforeRouteEnter)
 
-- to: 이동할 페이지의 라우트 객체
-- from: 이전 페이지의 라우트 객체
-- next: 네비게이션 동작을 승인하거나 취소할때, 호출하는 함수
-
+### beforeEach
+- 라우터 자체에 메서드로 준다. (전역)
 - main.js
 ```js
 router.beforeEach(function(to, from, next){
@@ -216,4 +223,81 @@ router.beforeEach(function(to, from, next){
 ```
 - 인증 등의 사용에 유리
 
- 
+### beforeEnter
+- router 구성의 객체에 메서드로 준다 (컴포넌트 지역)
+```js
+beforeEnter(to, from, next){
+    next();
+}
+```
+
+### beforeRouteEnter
+- 컴포넌트에 메서드로 준다 (컴포넌트 내부)
+- 이동하려는 컴포넌트에서 해당 메서드가 먼저 호출되고, 이 컴포넌트로 이동이 승인된다.
+```js
+beforeRouteEnter(to, from, next){
+    next();
+}
+```
+- 사용자의 해당 페이지로의 이동에 대한 인가를 할 수 있다.
+    - 승인하거나, 거부하고 리다이렉션
+
+
+### afterEach
+- 라우터 자체에 메서드로 준다. (전역)
+- main.js
+```js
+router.afterEach(function(to, from){
+    next();
+})
+```
+- 실행되면, 이미 이동이 승인된 것이기 때문에, next 함수는 없다.
+- 이동 거부를 할 수 없다.
+- 분석 데이터를 보내는데 유리하다.
+    - 이동 액션, 로그 등
+
+### beforeRouteLeave
+- 컴포넌트에 메서드로 준다 (컴포넌트 내부)
+- 떠나기 직전, 페이지 떠나는 액션을 거부할 때 (이동을 취소할 때)
+    - 사용자가 페이지를 저장하지 않고 떠날때, 알럿을 띄운다던지 할 때
+    - 이후, beforeEach, beforeEnter 등의 네비게이터를 실행한다.
+```js
+beforeRouteLeave(to, from, next){
+    if(this.changesSaved){
+        next();
+    }else{
+        const isWantedToLeave = prompt('are you sure? you got unsaved changes');
+        next(isWantedToLeave);
+    }
+}
+```
+
+## 라우트 메타필드
+- 라우트 구성에 meta 프로퍼티를 추가할 수 있다.
+```js
+routes: [
+    {
+        name: '~',
+        path: '/',
+        meta: { needsAuth: true },
+        components: { default: TeamsList },
+        children: [],
+    }
+]
+
+~~~~
+
+router.beforeEach(function(to, from, next){
+    if(!to.meta.needsAuth){
+        console.log('Needs Auth');
+        next(false);
+    }else{
+        next();
+    }
+})
+```
+- 라우트 객체나 $route 객체가 있는 곳 모두에서 메타 필드에 액세스 가능하다.
+    - 라우트에 로드된 컴포넌트에 데이터 전달할 수 있다.
+    - 네비게이션 가드의 to, from 객체에서 액세스할 수 있다.
+
+
