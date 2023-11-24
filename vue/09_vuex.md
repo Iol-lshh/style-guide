@@ -170,8 +170,8 @@ const store = createStore({
         finalCounter(state){   // state: 현재 상태
             return state.counter * 2; 
         },
-        normalizedCounter(state, getters){  // getters: 계산 결과가 다른 게터에 영향을 받을 때
-            finalCounter = state.counter * 3;
+        normalizedCounter(_, getters){  // getters: 다른 게터 참조
+            finalCounter = getters.finalCounter;
             if(finalCounter < 0){
                 return 0;
             }
@@ -190,7 +190,7 @@ const store = createStore({
 ...
 computed: {
     counter(){
-        return $this.store.getters.finalCounter;    // 그저 포인트
+        return $this.store.getters.finalCounter;    // 그저 포인터
     },
     normalizedCounter(){
         return $this.store.getters.normalizedCounter;
@@ -198,3 +198,10 @@ computed: {
 },
 ...
 ```
+
+- 왜 mutation을 commit으로 동기적으로 동작시킬까?
+    - 여러곳에서 처리시, 모든 mutation이 가장 최신 상태를 받아야만 하기 때문
+    - 다른 mutation이 커밋(완료)되고 실행되는 방식이 아니라면..
+
+
+
