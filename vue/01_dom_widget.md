@@ -74,22 +74,26 @@ const goals = [];
 ```
 
 
-# vue property
+# Vue 기본 property
 - data
+    - 상태
+    - 프록시로 감싸져, 반응성을 갖게 된다.
 - methods
     - 이벤트와 데이터 바인딩에 쓰인다.
     - 데이터 바인딩의 경우, 의존성이 뷰 전체 프로퍼티에 있어, 매번 반응한다.
 - computed
     - 여러 data 프로퍼티에 의존성 반응 (this)
+        - 컨텍스트 내부에 쓰인 data 프로퍼티들의 변화를 감지하여 동작
     - 계산된 값에 좋다.
 - watch
-    - 하나의 data 프로퍼티에 이름으로 의존성 반응
     - watcher 감시자
-    - 조건 활용에 좋다.
-    
+    - 명칭과 동일한 data 프로퍼티의 상태에 의존성을 갖고 반응
+        - 단일 상태를 감시하고 동작하게 된다.
+        - 첫번째 인자는 변화되는 값
+        - 두번째 인자는 변화 이전의 값
 
+## 위젯 예시
 
-# 위젯
 ```html
 <head>
     <script src="https://unpkg.com/vue@next" defer></script>
@@ -246,8 +250,6 @@ app.mount('#user-goal');
 - createApp 으로 vue 객체를 만든다.
     - 때문에 객체 내부의 함수에서 this 사용시, vue 객체의 data를 가져오게 된다.
 
-# 템플릿
-- 콘텐츠 부분
 
 
 

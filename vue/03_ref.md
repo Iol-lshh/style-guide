@@ -1,5 +1,6 @@
 # ref
 - DOM 요소에 액세스할 때, 순수 JS에서도 사용가능한 JS 객체가 된다.
+  - 그 본질적인 특징을 이용해 [Composition API](./10_composition_api.md/#ref)에서도 사용된다.
 
 ```js
 const app = Vue.createApp({
