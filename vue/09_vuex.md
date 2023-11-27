@@ -298,6 +298,7 @@ export default {
 ```
 
 ## mapAction
+- action을 가져오기 위해, 저장소를 파고들지 않으려면?
 ```html
 <template>
     <button @click="inc">Add 1</button>
