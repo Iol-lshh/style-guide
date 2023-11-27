@@ -8,7 +8,7 @@
 > 7. [컴포넌트 추가 기능들](./07_more_about_components.md)
 > 8. [라우팅](./08_routing.md)
 > 9. [Vuex](./09_vuex.md)
-> 10. [Composition API]()
+> 10. [Composition API](./10_composition_api.md)
 
 
 ### 참조
