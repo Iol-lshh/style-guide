@@ -68,10 +68,11 @@ console.log(proxy2.message1); // world
 console.log(proxy2.message2); // world
 ```
 
-- 트랩(trap)
-- **처리기 함수는 대상 객체에 대한 호출을 잡는다.** 
-- 대상 객체의 속성 액세스를 가로채는 **get() 처리기**
-- handler2의 트랩은 모든 속성 접근자를 재정의
+## 트랩(trap)
+- 트랩이란, 객체의 기본 슬롯 함수들에 대한 **확장**을 제공하는 Proxy의 처리기 함수이다.
+  - **처리기 함수는 대상 객체에 대한 호출을 intercept 한다.** 
+- handler2의 트랩은 target에 대한 모든 속성 접근자를 재정의한다.
+    - 대상 객체의 모든 get 속성 액세스를 가로채는 **get() 처리기**
 
 ```js
 // Reflect 클래스를 통해, 원래 동작을 제공
