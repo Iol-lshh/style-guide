@@ -9,3 +9,8 @@
 > 8. [라우팅](./08_routing.md)
 > 9. [Vuex](./09_vuex.md)
 > 10. [Composition API]()
+
+
+### 참조
+- 본 문서는 [Udemy Maximilian Schwarzmüller님의 강의](https://www.udemy.com/course/vue-router-composition-api/)를 토대로 만들어졌습니다.
+    - 예제를 함부로 배포하지 말아주세요.
