@@ -4,6 +4,7 @@
 > - [사용 예](#사용-예)
 >   - [$router](#router)
 >   - [:param 동적 경로 세그먼트(인자)](#param-동적-경로-세그먼트인자)
+>       - [$route](#route)
 >       - [watcher와 연계](#watcher와-연계)
 > - [라우팅 옵션](#라우팅-옵션)
 >   - [props](#props)
@@ -104,6 +105,8 @@ const router = createRouter({
     ],
 });
 ```
+### $route
+- `$route`로 받을 수 있다.
 ```js
 const teamId = this.$route.params.teamId
 ```

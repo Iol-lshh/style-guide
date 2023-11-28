@@ -1,4 +1,43 @@
-# VS Options api
+
+# 개론
+![composition_api](./img/composition_api.PNG)
+> - [vs Options api](#vs-options-api)
+> - [Options API](#options-api)
+>   - [Options API의 한계](#options-api의-한계)
+> - [Composition API]()
+> - [setup]()
+>   - [setup 축약]()
+>   - [ref]()
+>       - [value]()
+>   - [props]()
+>   - [computed]()
+>   - [function]()
+>   - [watch]()
+> - [etc]()
+>   - [reactive]()
+>       - [isRef(), isReactive()]()
+>       - [toRef()]()
+>   - [기존 템플릿의 ref]()
+>   - [props]()
+>   - [context]()
+>   - [provide(), inject()]()
+>   - [defineProps(), defineEmits()]()
+>   - [defineExpose()]()
+> - [정리]()
+> - [LifeCycle Hooks]()
+> - []()
+> - []()
+> - []()
+> - []()
+> - []()
+> - []()
+> - []()
+> - []()
+> - []()
+> - []()
+> - []()
+
+# vs Options api
 - 템플릿과 스타일링은 그대로
 - 프로퍼티, 사용자 설정 이벤트도 그대로
 - JavaScript 코드는 격변
@@ -101,7 +140,7 @@
 </script>
 ```
 
-# ref
+## ref
 - 평범한 순수 변수나 상수를 저장한다.
     - ref는 내부적으로 객체를 생성하고, 값을 그 객체에 저장한다. 
         - 프록시는 아니다
@@ -110,7 +149,7 @@
 - ref 없이 변수에 값을 할당하고, return 할 수 있지만,
     - 반응형을 갖지 않는다. (리엑트가 감시하지 않는다.)
 
-## value
+### value
 - ref 내장 프로퍼티로, getter, setter 기능을 지원한다.
     - 템플릿에서는 .value를 쓸 필요없다.
         - vue가 감시하고 있기때문에 알아서, .value 값을 보여준다.
@@ -380,7 +419,7 @@ defineExpose({
 | watch:{} | watch(dep, (new, old)=>{}) |
 | provide:{}, inject:[] | provide(key, val), inject(key) |
 
-# LifeCycle
+# LifeCycle Hooks
 | | Option API | => | Composition API |
 |---|---|---|---|
 | 1 | beforeCreate, created | | setup() |
@@ -405,3 +444,146 @@ export default {
 ```
 - 해당 시점에 인자로 받은 function을 호출한다.
 
+
+# 라우터
+## 동적 세그먼트 받기
+- props를 통한 전달
+```js
+// router
+{path: '/products/:pid', component: ProductDetails, props: true}
+
+// ProductDetails.vue
+export default {
+    props: ['pid'],
+    setup(props){
+        return {
+            pid: props.pid,
+        }
+    }
+}
+```
+- `computed()`: 값 할당을 vue에 인지시킬 때
+- `watch()`: 변수(ref)로 vue가 인지하는 동작을 트리거할 때
+
+# 라우트 객체 정보 받기
+## useLink
+- this.$route 대용
+```js
+// router
+{path: '/products/:pid', component: ProductDetails, props: true}
+
+// ProductDetails.vue
+import { use } from 'vue-router';
+
+export default {
+    props: ['pid'],
+    setup(props){
+        return {
+            pid: props.pid,
+        }
+    }
+}
+```
+- 훅, 컴포저블 사용자 지정 컴포지션 함수 (컴포지션 API 내장)
+![useLink](./img/useLink.PNG)
+    - useLink
+    - useRoute
+    - useRouter
+
+## useRoute
+```js
+import { useRoute } from 'vue-router';
+
+export default {
+    setup(){
+        const route = useRoute();
+    }
+}
+```
+
+![useRoute](./img/useRoute.PNG)
+- useRoute가 반환하는 객체
+    - 리엑트 Proxy 객체
+    - 라우트가 변경될 때, 이 객체를 이용해서 의존하는 데이터를 업데이트할 수 있다.
+        - compute 또는 watch로..!
+    - 라우트에 한정, `props를 통한 전달` 방식을 대체한다!
+
+```js
+// router
+{path: '/products/:pid', component: ProductDetails, props: true}
+
+// ProductDetails.vue
+export default {
+    props: ['pid'],
+    setup(){
+        const route = useRoute();
+        return {
+            pid: route.params.pid,
+        }
+    }
+}
+```
+
+## useRouter
+- 옵션 API에서는 `this.$router.push`를 사용했다.
+```js
+import { useRouter } from 'vue-router'
+
+export default{
+    setup(){
+        const router = useRouter();
+
+        function submitForm(){
+            addProduct({
+                title: enteredTitle,
+            });
+            //this.$router.push('/products');
+            router.push('/products');
+        }
+    }
+}
+```
+
+# Vuex
+## useStore()
+- store를 setup 내부에서 사용하는 방법
+    - 나머지는 동일하다.
+```js
+//// ControlCenter.vue
+import { useStore } from 'vuex';
+
+export default {
+  setup() {
+    const store = useStore();
+
+    function inc() {
+      store.dispatch('increment');
+    }
+
+    return { inc };
+  },
+};
+
+
+//// TheCounter.vue
+import { computed } from 'vue';
+import { useStore } from 'vuex';
+
+export default {
+  setup() {
+    const store = useStore();
+
+    const counter = computed(function() {
+      return store.getters.counter;
+    });
+
+    return { counter };
+  },
+};
+```
+- ControlCenter => TheCounter 
+    - vuex를 이용하여 데이터 값을 변경하고, 
+    - vuex를 이용하여 데이터 값을 가져오고 있다.
+
+
+ 
