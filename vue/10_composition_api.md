@@ -140,10 +140,12 @@ setup(props) {  // setup은 props를 인자로 받는다.
     - ref의 watch 버전이다.
     - 템플릿에서 필요하면 return 시키면 된다.
 - watch의 인자
-    - 첫번째 인자는 의존성.
+    - **첫번째 인자**는 **의존성**.
         - 첫번째 인자에 변화가 있을때마다, 동작한다.
-    - 두번째 함수 인자는 watch 로직
-        - 두번째 함수의 인자는 첫번째 인자의 변화된 값
+        - 배열을 제공할 수도 있다.
+            - 배열의 요소들에 변화가 있을때마다, 동작한다.
+    - **두번째 인자**는 **함수로써 watch 로직**
+        - 원래 watch와 마찬가지로 `newValue`, `oldValue` 두개의 인수를 갖는다.
 
 ```js
 // ref, computed, watch 사용할꺼면 import 해야 한다.
@@ -243,7 +245,6 @@ export default {
         return { user };
     }
 }
-
 ```
 
 ### isRef(), isReactive()
@@ -264,5 +265,143 @@ const userRefs = toRefs(user);
 // user의 프로퍼티들이 전부 ref가 된다.
 ```
 
+## 기존 템플릿의 ref
+- 스크립트에서 ref를 만들어 반환하고, 템플릿과 연계한다.
+- 기존 템플릿의 ref는 어차피 같은 ref이기 때문에, vue가 잘 가져다 써준다.
 
+```html
+<template>
+    <input type="text" ref="lastNameInput"/>
+</template>
+<script setup>
+    const lastNameInput = ref(null);
+
+    let answer = lastNameInput.value.value; // ref.value = input 이므로
+</script>
+```
+
+## props
+- 옵션 API props와 같이 작성된 컴포지션 API 방식
+```js
+export default {
+    props: ['firstName', 'lastName'],
+    setup(props){
+        const userName = computed(function() {
+            return props.firstName + ' ' + props.lastName;
+        });
+        return { userName };
+    }
+}
+```
+
+## context
+- 폴스루의 동작에 영향 받음
+    - 템플릿 내에 단일 루트 돔 태그여야 한다.(복수개의 루트일때 폴스루가 정상적으로 작동하지 않음)
+- context
+    - attrs
+    - emit
+        - 옵션 API의 `this.$emit()` 대체재로써, setup 내에서 `context.emit()`으로 사용한다.
+    - slots
+        - 컴포넌트의 슬롯 데이터에 액세스 `<slot></slot>`
+```js
+export default {
+    setup(props, context){
+        // this.$emit('save-data', 1);
+        context.emit('save-data', 1);
+    }
+}
+```
+
+## provide(), inject()
+```js
+//
+const uAge = 1;
+provide('userAge', uAge);
+
+//
+const age = inject('userAge');
+```
+
+
+## defineProps(), defineEmits()
+- 기존 props와 emits 사용
+- setup에서 모듈 범위로 호이스트 된다.
+```html
+<script setup>
+const props = defineProps({
+    foo: String
+});
+
+const emit = defineEmits(['change', 'delete']);
+
+////
+const props = defineProps<{
+    foo: string,
+    bar?: number
+}>();
+
+const emit = defineEmits<{
+  (e: 'change', id: number): void,
+  (e: 'update', value: string): void
+}>();
+
+// 3.3+: alternative, more succinct syntax
+const emit = defineEmits<{
+  change: [id: number], // named tuple syntax
+  update: [value: string]
+}>();
+</script>
+```
+
+## defineExpose()
+- <script setup>을 사용하는 컴포넌트는 기본적으로 닫혀 있다. 
+- 템플릿 참조 또는 $parent 체인을 통해 검색되는 컴포넌트의 공개 인스턴스는 `<script setup>` 내부에서 선언된 바인딩을 노출하지 않는다.
+- 명시적으로 노출하려면 defineExpose 컴파일러 매크로를 사용해야 한다.
+```html
+<script setup>
+import { ref } from 'vue'
+
+const a = 1
+const b = ref(2)
+
+defineExpose({
+    a,
+    b
+})
+</script>
+```
+
+# 정리
+| Option API | Composition API |
+|---|---|
+| data(){} | ref(), reactive() |
+| methods:{} | function |
+| computed:{} | computed() |
+| watch:{} | watch(dep, (new, old)=>{}) |
+| provide:{}, inject:[] | provide(key, val), inject(key) |
+
+# LifeCycle
+| | Option API | => | Composition API |
+|---|---|---|---|
+| 1 | beforeCreate, created | | setup() |
+| 2 | beforeMount, mounted | | onBeforeMount(), onMounted() |
+| 3 | beforeUpdate, updated | | onBeforeUpdate(), onUpdated() |
+| 4 | beforeUnmount, unmounted | | onBeforeUnmount(), onUnmounted() |
+
+- setup이 created가 실행되는 시점
+```js
+import {onBeforeMount, onMounted } from 'vue';
+
+export default {
+    setup(){
+        onBeforeMount(function() {
+            console.log('onBeforeMount');
+        });
+        onMounted(function() {
+            console.log('onMounted');
+        });
+    }
+}
+```
+- 해당 시점에 인자로 받은 function을 호출한다.
 
