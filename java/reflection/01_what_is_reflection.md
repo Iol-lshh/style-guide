@@ -9,8 +9,10 @@
 - 동적이기 때문에, 다목적 알고리즘 작성이 가능하다.
 
 ## 있을때 없을때 비교
+
 ![without_reflection](./img/without_reflection.PNG)
 - 단순 함수
+
 ![with_reflection](./img/with_reflection.PNG)
 - input에 대해 재분석(재 input)이 가능하다
     - 라이브러리
