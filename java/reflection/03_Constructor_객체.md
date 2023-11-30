@@ -5,15 +5,15 @@
     - 매개변수 타입에 한정되지 않는다.
         - 클래스는 생성자 오버로딩이 가능하기 때문에
 
-## 메서드
-### Class.getDeclaredConstructors()
+# 생성자 객체를 가져오기
+## Class.getDeclaredConstructors()
 - 클래스의 모든 생성자를 반환
     - 접근 제한자를 무시하고 모두 반환
 
-### Class.getConstructors()
+## Class.getConstructors()
 - public 생성자만 반환
 
-### 매개변수 타입을 알 때
+## 매개변수 타입을 알 때
 - 매개변수 타입 목록을 전달하여, 특정 클래스를 반환받을 수 있다.
     - 없다면, NoSuchMethodException
 - `Class.getConstructor(Class<?> ... parameterTypes)`
@@ -24,7 +24,7 @@ Constructor<?> [] constructors = Person.class.getConstructors();
 Constructor<?> defaultConstructor = Person.class.getDeclaredConstructor();
 ```
 
-## 객체 생성
+# 객체 생성
 - `Constructor.newInstance(Object ... arguments)`
     - 생성자에 선언된 순서대로 생성자 매개변수를 가변인수로 받는 메서드
     - 접근 가능한 생성자라면, 객체를 생성해준다.
@@ -51,7 +51,7 @@ public static <T> T createInstanceWithArguments(Class<T> clazz, Object ... args)
 }
 ```
 
-### 접근 제한 Constructor 객체 접근
+## 접근 제한 Constructor 객체 접근
 - private class는 동일 패키지에서만 사용이 가능하다.
 - `constructor.setAccessible(true)`
     - 접근이 제한된 생성자도 사용할 수 있게 한다.

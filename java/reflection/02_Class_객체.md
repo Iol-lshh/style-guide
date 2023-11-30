@@ -72,7 +72,7 @@ Class intClass = Class.forName("int"); // Runtime Error
 
 - 세가지 방법 중, forName 메서드가 가장 유연하지만, 가장 위험한 방법이다.
 
-### Class.froName()의 Use Cases
+### Class.forName()의 Use Cases
 1. 인스턴스를 확인하거나, 만들려는 타입이 런타임 중 사용자 정의 구성 파일에서 전달될 때, 이 메서드를 사용한다.
     - ex) MyBatis
 
