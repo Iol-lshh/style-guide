@@ -52,11 +52,81 @@ public static <T> T createInstanceWithArguments(Class<T> clazz, Object ... args)
 ```
 
 ### 접근 제한 Constructor 객체 접근
+- private class는 동일 패키지에서만 사용이 가능하다.
 - `constructor.setAccessible(true)`
-    - 특별한 경우에만 사용한다.
+    - 접근이 제한된 생성자도 사용할 수 있게 한다.
 ```java
 Constructor<ServerConfiguration> constructor = ServerConfiguration.class.getDeclaredConstructor(int.class, String.class);
 
 constructor.setAccessible(true);
 constructor.newInstance(8080, "Good Day!");
 ```
+- 특별한 경우에만 사용한다.
+
+## 1. 적절한 예시: Parsing to/from Java Objects
+```java
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+class HttpClient{
+    private final ObjectMapper objectMapper;
+
+    public float getPriceFromService(){
+        // 요청 보낼 데이터를 만든다.
+        Request request = buildRequest();
+        byte[] requestData = objectMapper.writeValueAsBytes(request);
+        
+        // 요청 데이터로 요청하고, 응답을 받아온다.
+        byte[] responseData = sendHttpRequest(requestData);
+        
+        // 응답 객체를 초기화
+        Response response = objectMapper.readValue(requestData, Response.class);
+        return response.getPrice();
+    }
+}
+```
+
+## 2. 적절한 예시: Dependency Injection
+![tictactoe_dependency](./img/tictactoe_dependency.PNG)
+1. 각 의존 관계에서, 생성자 매개변수 타입을 확인한다.
+2. 해당 타입의 객체를 생성한다.
+    - ComputerPlayer
+3. 의존성 주입해준다.
+    - ComputerInputProvider
+4. 재귀적으로 탐색하며(DFS) 반복한다.
+```java
+////
+public static void main(String[] args) throws IllegalAccessException, InstantiationException, InvocationTargetException {
+    Game game = createObjectRecursively(TicTacToeGame.class);
+    game.startGame();
+}
+
+//// 생성하고 의존성 주입을 도움
+public static <T> T createObjectRecursively(Class<T> clazz) throws IllegalAccessException, InvocationTargetException, InstantiationException {
+    Constructor<?> constructor = getFirstConstructor(clazz);
+
+    List<Object> constructorArguments = new ArrayList<>();
+
+    // Constructor 객체를 통해, 의존성 주입할 객체의 타입을 확인
+    for (Class<?> argumentType : constructor.getParameterTypes()) {
+        // 재귀적인 생성
+        Object argumentValue = createObjectRecursively(argumentType);
+        // Constructor 객체에 의존성 주입
+        constructorArguments.add(argumentValue);
+    }
+
+    // Constructor 객체를 이용한 객체 생성
+    constructor.setAccessible(true);
+    return (T) constructor.newInstance(constructorArguments.toArray());
+}
+
+////
+private static Constructor<?> getFirstConstructor(Class<?> clazz) {
+    Constructor<?>[] constructors = clazz.getDeclaredConstructors();
+    if (constructors.length == 0) {
+        throw new IllegalStateException(String.format("No constructor has been found for class %s", clazz.getName()));
+    }
+
+    return constructors[0];
+}
+```
+
