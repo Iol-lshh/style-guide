@@ -6,7 +6,7 @@
         - Java와 비슷하나, 더 dynamic하고 simple하다.
         - 스크립트 언어
 
-##  jenkins 파일 예시    
+# Job DSL groovy 파일 예시    
 ```groovy
 job('NodeJS example'){     // job의 이름
     // 버전 관리 정보
@@ -35,9 +35,15 @@ job('NodeJS example'){     // job의 이름
 }
 ```
 
-### 젠킨스에 DSL 플러그인 사전 설치
+## 젠킨스에 DSL 플러그인 사전 설치
 - Manage Jenkins -> Configure Tools -> NodeJS Installations -> Name
 
-### 스크립트 설치를 승인해야한다.
+## 스크립트 설치를 승인해야한다.
 - In-process Script Approval
-  
+
+# 젠킨스 Job DSL API
+![dsl_apis](./img/dsl_apis.PNG)
+- <https://jenkinsci.github.io/job-dsl-plugin/>
+- 해당 웹 사이트를 사용하여, 사용 가능한 메서드와 플러그인을 찾을 수 있다.
+
+
