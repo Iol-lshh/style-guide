@@ -228,7 +228,9 @@ networks:
             name: nat
 ```
 - 도커 컴포즈는 실제 컨테이너 대신, 서비스 개념을 단위로 삼는다.
-    - 하나의 서비스는 여러 컨테이너에서 실행될 수 있기 때문.
+  - 하나의 서비스는 여러 컨테이너에서 실행될 수 있기 때문.
+- extenrnal.name 이 없다면, 자동으로 새로 만들어준다.
+
 ```sh
 # 도커 네트워크 생성
 docker network create nat
@@ -652,7 +654,7 @@ networks:
 
 ### 젠킨스 파일
 - 리눅스
-```jenkins
+```groovy
 pipeline {
     agent any
     environment {
@@ -697,7 +699,7 @@ pipeline {
 }
 ```
 - 윈도우
-```jenkins
+```groovy
 pipeline {
     agent any
     environment {
