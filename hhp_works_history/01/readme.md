@@ -24,7 +24,8 @@
 ## 1. 도커 엔진을 이용한 빌드 구축
 - [도커 파일 및 도커 컴포즈 구성](../../cloud/docker/doc_docker.md)
 
-- 참조 링크
+
+## 참조 링크
     - [CI/CD 파이프라인: 개념, 방법, 장점, 구현 과정](https://www.redhat.com/ko/topics/devops/what-cicd-pipeline)
     - [docker 소개 블로그](https://www.44bits.io/ko/post/easy-deploy-with-docker)
     - [Docker Compose 소개 블로그](https://scarlett-dev.gitbook.io/all/docker/untitled)
