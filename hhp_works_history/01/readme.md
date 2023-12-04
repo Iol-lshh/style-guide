@@ -1,13 +1,3 @@
-
-# ci/cd
-
-
-
-
-- 깃헙 액션
-- 깃헙 액션 공식 문서: <https://docs.github.com/en/actions>
-
-
 # Step1: 웹 서버 생성
 ## Health Check가 가능한 앱
 - Spring Boot Actuator
