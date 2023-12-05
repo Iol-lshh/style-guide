@@ -200,8 +200,6 @@ CMD ["java","-Dspring.profiles.active=docker-demo","-jar","webapp.jar"]
 - [도커 컴포즈 설치](https://docs.docker.com/compose/install)
     - 확인 `docker-compose -v`
 - [compose-file 가이드 문서](https://docs.docker.com/compose/compose-file/04-version-and-name/)
-- [스프링 부트 재시작 이슈](https://github.com/spring-projects/spring-boot/issues/4779)
-    - [컴포즈 컨테이너 기다리기](https://stackoverflow.com/questions/31746182/docker-compose-wait-for-container-x-before-starting-y)
 
 ```yaml
 version: "3"
@@ -228,8 +226,22 @@ services:
         
 networks:
     fleetman-network:
-
-            
 ```
+- [스프링 부트 재시작 이슈](https://github.com/spring-projects/spring-boot/issues/4779)
+    - [컴포즈 컨테이너 기다리기](https://stackoverflow.com/questions/31746182/docker-compose-wait-for-container-x-before-starting-y)
+    - 3버전에서 healthcheck는 포팅되지 못했다. 
+        - 이는 도커 컴포즈가 오케스트레이션 시스템을 구축하려 하지 않는다는 입장을 보여주려는 의도라고 한다.
+        - 쿠버네티스는 컨테이너가 정상인지 확인하는 작업을 훌륭히 해준다.
+    - 문제가 있다면, docker-compose up을 여러번 해주면 된다고 한다...
+
+- `docker-compose up -d`
+    - 실행 중인 모든 컨테이너의 상태를 확인하고, 이미지에 변경사항이 있으면, 다시 시작한다.
+    - `-d` 옵션은 백그라운드 실행이므로, docker-compose의 작업이 없을때 실행을 보장한다.
+- `docker-compose logs -f fleetman-webapp`
+    - 해당 앱에 대한 로그를 확인
+- 결론: 경합 조건 때문에 시작하지 못한 컨테이너가 있다면, `docker-compose up -d` 를 실행하라..
+    - 이건 프로덕션 용이 아니라고 한다..
+    - 쿠버네티스 Deployment 기능..
+    
 
 
