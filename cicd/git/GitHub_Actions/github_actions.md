@@ -263,6 +263,6 @@ jobs:
 
 
 # 참조
-    - <https://www.daleseo.com/github-actions-basics/>
+- <https://www.daleseo.com/github-actions-basics/>
 
 
