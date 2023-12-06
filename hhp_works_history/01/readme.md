@@ -23,7 +23,7 @@
 # Step2: 빌드 환경 구축
 ## 1. 도커 엔진을 이용한 빌드 구축
 - [도커 파일 및 도커 컴포즈 구성](../../cloud/docker/doc_docker.md)
-
+- [스프링부트 * 도커](../../cloud/docker/docker_java/docker_java.md)
 
 ## 참조 링크
     - [CI/CD 파이프라인: 개념, 방법, 장점, 구현 과정](https://www.redhat.com/ko/topics/devops/what-cicd-pipeline)
@@ -33,6 +33,7 @@
 
 ## 2. Github Action을 이용한 CI/CD 환경 구축
 - Push, PR 등에 대해 Trigger
+- [Github Action Workflow 작성](../../cicd/git/GitHub_Actions/github_actions.md)
 
 - 참조 링크
     - 깃헙 액션 공식 문서: <https://docs.github.com/en/actions>
@@ -88,7 +89,8 @@
                 - CPU 및 메모리 요구 사항
                 - 네트워킹 및 IAM 정책 정의
             3. 애플리케이션 시작
-        - 각 Fargate 태스크에는 자체 격리 경계가 있으며 다른 태스크와 기본 커널, CPU 리소스, 메모리 리소스 또는 탄력적 네트워크 인터페이스를 공유하지 않는다.
+        - 각 Fargate 태스크에는 자체 격리 경계가 있으며 다른 태스크와 기본 커널, CPU 리소스, 메모리 리소스 또는 탄력적 네트워크 인터페이스를 공유하지 않는다. 
+    - [Lambda vs EC2 vs Fargate 비교 분석](https://blogs.perficient.com/2021/06/17/aws-cost-analysis-comparing-lambda-ec2-fargate/)
 
 ## 추가 고려 사항
 - VPC
