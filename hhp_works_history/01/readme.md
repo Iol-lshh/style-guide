@@ -82,7 +82,7 @@
 - ECS Fargate?
     - ECR로부터 이미지를 가져와 ECS에 구동하는 역할
     - 가상머신 메트릭스 설정을 관리하고, 컨테이너를 생성해주는 서버리스 기능
-        - *Fargate 시작 유형* 또는 *Fargate 용량 공급자*를 사용하여 **Amazon ECS 태스크** 설정
+        - *Fargate 시작 유형* 또는 *Fargate 용량 공급자*를 사용하여 **Amazon ECS Task**에서 설정
             1. 서비스를 실행시, 컨테이너에 패키징할 애플리케이션을 설정
             2. VM 구성 요소 설정
                 - 운영 체제
@@ -104,3 +104,8 @@
 - [Elastic Container Service on AWS Fargate](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/AWS_Fargate.html)
 - [AWS Fargate를 사용하여 아마존 ECS에 자바 마이크로서비스를 배포하세요](https://docs.aws.amazon.com/ko_kr/prescriptive-guidance/latest/patterns/deploy-java-microservices-on-amazon-ecs-using-aws-fargate.html)
 
+
+# DataBase 정하기
+![mastering_database_selection](./img/mastering_database_selection.jpg)
+![aboud_database_selection](./img/aboud_database_selection.jpg)
+![kind_of_database](./img/kind_of_database.png)
