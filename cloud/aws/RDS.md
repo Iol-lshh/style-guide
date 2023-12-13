@@ -31,7 +31,7 @@ PostgreSQL은 복잡한 쿼리를 요구하고 대규모 서비스인 경우에 
 |테이블 기본 구성 인덱스|CLUSTERD INDEX|NON-CLUSTERED INDEX||
 |인덱스 구성 방식|B-tree|[Partial Index](#partial-index)||
 
-- MySQL 8.0에서 정식 지원되는 hash join, parallel query 기능이 저희가 사용하는 Aurora MySQL 5.7 버전에서 일부(또는 조금 다른 방식으로) 지원하나, 제한적
+- MySQL 8.0에서 정식 지원되는 hash join, parallel query 기능이 사용하는 Aurora MySQL 5.7 버전에서 일부(또는 조금 다른 방식으로) 지원하나, 제한적
     - PostgreSQL은 오래전부터(9버전~) 대부분의 select쿼리에서 parallel 기능이 지원되고 있고 다양한 join 방식을 지원하기 때문에 개선이 필요한 정산 쿼리의 성능적인 이점이 있다.
 - OLAP성 쿼리 처리에서 7배 정도 차이가 난다.
 
