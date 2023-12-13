@@ -21,8 +21,7 @@
 |---|---|---|---|
 |DB 관리 방식|RDBMS|[ORDBMS](#ordbms)||
 |작동 방식|멀티 쓰레드|멀티 프로세스||
-|사용환경|OLTP|OLTP, OLAP|단순 CRUD시에는 MySQL에 비해 PostgreSQL의 성능이 조금 떨어진다.
-PostgreSQL은 복잡한 쿼리를 요구하고 대규모 서비스인 경우에 특화되어 있다.|
+|사용환경|OLTP|OLTP, OLAP|단순 CRUD시에는 MySQL에 비해 PostgreSQL의 성능이 조금 떨어진다. PostgreSQL은 복잡한 쿼리를 요구하고 대규모 서비스인 경우에 특화되어 있다.|
 |MVCC|[Undo Segment](#undo-segment)|[MGA](#multi-generation-architecture)||
 |UPDATE|UPDATE|INSERT & DELETE (check)|PostgreSQL UPDATE시 내부적으로 새 행을 INSERT하고, 이전 데이터에 삭제 표시를 한다. 모든 인덱스는 행의 실제 위치값에 대한 링크가 표기되어 있어, 행이 업데이트되면 위치값이 변경되고,인덱스 정보도 업데이트한다. 때문에 MySQL보다 UPDATE에서 성능이 떨어진다.|
 |JOIN|NL JOIN, HASH JOIN|NL JOIN, HASH JOIN, SORT JOIN||
@@ -36,7 +35,9 @@ PostgreSQL은 복잡한 쿼리를 요구하고 대규모 서비스인 경우에 
 - OLAP성 쿼리 처리에서 7배 정도 차이가 난다.
 
 #### ORDBMS
-- 객체Object 관계형Relation DBMS: 기존 데이터 type에서 확장된 type을 정의하여 사용할 수 있다. 테이블 상속기능이 제공되어 자식 테이블은 부모 테이블로부터 컬럼을 받을 수 있다.
+- 객체Object 관계형Relation DBMS
+- 기존 데이터 type에서 확장된 type을 정의하여 사용할 수 있다. 
+- 테이블 상속이 제공되어, 자식 테이블은 부모 테이블로부터 컬럼을 받을 수 있다.
 
 #### Undo Segment
 - update 하는 최신 데이터는 기존 데이터 블록의 레코드에 반영하고, 변경 전 값을 undo 이름의 별도 공간에 저장하여 갱신에 대한 버전관리로 처리
