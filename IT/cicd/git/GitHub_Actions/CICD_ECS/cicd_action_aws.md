@@ -1,55 +1,6 @@
 - <https://github.com/team-hlab/nestjs-cicd-sample>
 
 # AWS 세팅
-# 권한
-## IAM
-### 1. ECR Policy 생성
-- Authorization Token 획득
-- ECR repository push
-```json
-{
-    "Version": "2012-10-12",
-    "Statement": [
-        {
-            "Sid": "Authorization",
-            "Effect": "Allow",
-            "Action": [
-                "ecr:GetAuthorizationToken"
-            ],
-            "Resource": [
-                "*"
-            ]
-        },
-        {
-            "Sid": "ECRusage",
-            "Effect": "Allow",
-            "Action": [
-                "ecr:BatchCheckLayerAvailability",
-                "ecr:BatchGetImage",
-                "ecr:PutImage",
-                "ecr:UploadLayerPart",
-                "ecr:CompleteLayerUpload",
-                "ecr:InitiateLayerUpload",
-                "ecr:GetDownloadUrlForLayer"
-            ],
-            "Resource": [
-                "arn:aws:ecr:ap-northeast-2:200073956152:repository/hhplus-dev",
-                "arn:aws:ecr:ap-northeast-2:200073956152:repository/hhplus-prod"
-            ]
-        }
-    ]
-}
-```
-### 2. CI/CD 자동화에 사용할 Credentilals (IAM) 생성
-- 다음 정책들을 추가
-    - 위 만들어둔 Policy를 추가
-    - ECS 배포 자동화를 위해 필요한 권한 추가
-        - AmazonECS_FullAccess
-        - CloudWatchLogFullAccess
-
-### 3. Third-Party Service AccessKey 를 생성
-- 해당 IAM으로 GithubActions이 사용할 AccessKey
-    - 발급받은 Access key를 Github Repository secrets에 등록
 
 # 이미지 저장소
 ## ECR
@@ -58,6 +9,59 @@
 - 버저닝 ECR 배포
     - prod
     - dev
+
+
+# 권한
+## IAM
+### 1. ECR Policy 생성
+
+- 정책 생성
+    - Authorization Token 획득
+    - ECR repository push 권한들
+
+![iam_for_ecr_policy](./img/iam_for_ecr_policy.png)
+![write_arn](./img/write_arn.png)
+- 권한 대상 등록
+    - `arn:aws:ecr:ap-northeast-2:588630098141:repository/hhp-prod`
+#### 결과
+```json
+{
+	"Version": "2012-10-17",
+	"Statement": [
+		{
+			"Sid": "VisualEditor0",
+			"Effect": "Allow",
+			"Action": [
+				"ecr:GetDownloadUrlForLayer",
+				"ecr:BatchGetImage",
+				"ecr:CompleteLayerUpload",
+				"ecr:GetAuthorizationToken",
+				"ecr:UploadLayerPart",
+				"ecr:InitiateLayerUpload",
+				"ecr:BatchCheckLayerAvailability",
+				"ecr:PutImage"
+			],
+			"Resource": "arn:aws:ecr:ap-northeast-2:588630098141:repository/hhp-prod"
+		}
+	]
+}
+```
+
+### 2. CI/CD 자동화에 사용할 Credentilals (IAM) 생성
+- 다음 정책들을 추가
+    - 위 만들어둔 Policy를 추가
+    - ECS 배포 자동화를 위해 필요한 권한 추가
+    - `CloudWatchLogsFullAccess`
+    - `AmazonECS_FullAccess`
+
+![create_iam](./img/create_iam.png)
+
+### 3. Third-Party Service AccessKey 를 생성
+![iam_create_access_key](./img/iam_create_access_key.png)
+- 해당 IAM으로 GithubActions이 사용할 AccessKey
+    - 발급받은 Access key를 Github Repository secrets에 등록
+    
+
 
 # 네트워크 환경
 ## VPC
@@ -89,26 +93,20 @@
 ### 2. 타겟 그룹 Target Group 생성
 - ALB가 요청을 분배하는 기준
 
-![create_target_group](./img/create_target_group.png)
+![create_target_group](./img/create_target_group1.png)
 - Health check에 애플리케이션의 health check endpoint를 입력
 
-![select_network](./img/select_network.png)
+![select_network](./img/create_target_group2.png)
 
 ### 3. ALB 생성
+- 로드밸런스 이름과 설정
+- 사용할 vpc
+- 사용할 시큐리티 그룹
+- 라우팅 대상
 
 ![create_alb1](./img/create_alb1.png)
-
-- 로드밸런스 이름과 설정
-
 ![create_alb2](./img/create_alb2.png)
 
-- 사용할 vpc
-
-![create_alb3](./img/create_alb3.png)
-
-- 사용할 시큐리티 그룹과 라우팅 대상
-
-![create_alb4](./img/create_alb4.png)
 
 # 컨테이너 환경
 ## ECS 클러스터
@@ -116,34 +114,31 @@
 
 ![create_cluster](./img/create_cluster.png)
 
-### 2. IAM에 클러스터에 대한 권한 제공
+
+### 2. IAM에 클러스터에 대한 권한 제공 및 role 생성
 - AmazonECSTaskExecutionRolePolicy
     - 배포 자동화를 위한 Role
-    - IAM > Role
+
+![create_role_for_ecs_task1](./img/create_role_for_ecs_task1.png)
+![create_role_for_ecs_task2](./img/create_role_for_ecs_task2.png)
 
 ### 3. Task Definition 생성
 - 테스크 정의 생성
+    - Fargate 선택
+    - 이미지 ECR 주소 입력
+    - CloudWatch 설정
 
-![create_td1](./img/create_td1.png)
-- Fargate 선택
-
-![create_td2](./img/create_td2.png)
-- 이미지 ECR 주소 입력
-
-![create_td3](./img/create_td3.png)
-- CloudWatch 설정
+![create_task_def](./img/create_task_def.png)
 
 ### 4. Task 실행
+- 환경 설정
+    - VPC
+    - Security group
+    - alb
+    - target group
 
 ![create_task1](./img/create_task1.png)
 ![create_task2](./img/create_task2.png)
-![create_task3](./img/create_task3.png)
-
-![create_task4](./img/create_task4.png)
-- VPC, Security group 적용
-
-![create_task5](./img/create_task5.png)
-- alb 적용
 
 ### 5. 결과 확인
 ![ecs_result1](./img/ecs_result1.png)
@@ -165,9 +160,9 @@ env:
     # 본인의 Region 에 맞게 설정
     AWS_REGION: ap-northeast-2
     # 본인의 ECR URI 를 지정
-    ECR_REGISTRY: 200073956152.dkr.ecr.ap-northeast-2.amazonaws.com/hhplus-prod
+    ECR_REGISTRY: 588630098141.dkr.ecr.ap-northeast-2.amazonaws.com/hhp-prod
     # 본인의 ECR Repository 명을 지정
-    ECR_REPOSITORY: hhplus-prod
+    ECR_REPOSITORY: hhp-prod
 ```
 
 ## task-definition.json
