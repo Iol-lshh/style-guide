@@ -1,4 +1,6 @@
 - <https://github.com/Iol-lshh/style-guide>
+    - [private note](https://github.com/Iol-lshh/Private-note)
+
 # 글 목록
 > - [IT](./IT/)
 >   - [vue](./IT/front/vue/readme.md)
