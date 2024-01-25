@@ -143,8 +143,21 @@ mvn install
 - 프로젝트의 사이트는 my-site 리포지토리에 배포
 
 
+# 예시
+- https://github.com/spring-cloud/spring-cloud-netflix
 
+## 행동 강령
+- https://opensource.microsoft.com/codeofconduct/
+- https://github.com/Azure/iotedge?tab=readme-ov-file
+- https://github.com/mozilla/inclusion
 
+## 기여 가이드
+- https://github.com/Azure/iotedge/blob/main/doc/devguide.md
+- https://github.com/github/opensource.guide/blob/main/CONTRIBUTING.md
 
+## 가이드
+- https://github.com/github/opensource.guide/blob/main/docs/content-model.md
+- https://github.com/github/opensource.guide/blob/main/docs/styleguide.md
 
-
+## 라이센스
+- https://www.apache.org/licenses/LICENSE-2.0.html
