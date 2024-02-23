@@ -83,4 +83,4 @@
 - Amazon S3는 ECS 태스크에 파일 시스템으로 마운트할 수 없다.
 
 ## CI/CD
-- [CI/CD 예제](../../cicd/git/GitHub_Actions/CICD_ECS/cicd_action_aws.md)
+- [CI/CD 예제](../../cicd/git/CICD_ECS/cicd_action_aws.md)
