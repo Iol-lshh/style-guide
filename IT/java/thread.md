@@ -4,13 +4,11 @@
 - Mutual Exclusion
 - 상호간의 배제
 - 잠금 메커니즘
-  
 ![mutex_thread](./Docs-Ref/mutex_thread.webp)
 
 ## Semaphore
 - 원거리에서 정보를 전달하는 시각 신호 장치. 알파벳 코드에 따라 팔 또는 두 개의 깃발 또는 기둥을 특정 위치에 고정하여 메시지를 보내는 시스템
 - 신호 메커니즘
-  
 ![semaphore](./Docs-Ref/semaphore.jpg)
 ![semaphore_thread](./Docs-Ref/semaphore_thread.webp)
 
