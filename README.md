@@ -9,8 +9,10 @@
 >   - [docker](./IT/infra/docker/doc_docker.md)
 >   - [javascript](./IT/javascript/doc_Js_Style.md)
 >   - [java](./IT/java/doc_Java_Style.md)
->   - [RDBMS MVCC - PostgerSQL vs MySQL](./IT/sql/MVCC/MVCC_PostgerSQL_vs_MySQL.md)
+>   - [RDBMS MVCC - PostgerSQL vs MySQL](./IT/db/sql/MVCC/MVCC_PostgerSQL_vs_MySQL.md)
 >       - [RDS](./IT/infra/aws/RDS.md)
 >   - [OSS](./IT/oss/open_source.md)
 >   - [TDD](./IT/practice/tdd.md)
 >       - [Test in Spring](./IT/java/spring/Test.md)
+>   - [CS 기초 정리](./IT/practice/computer_science_basic.md)
+
