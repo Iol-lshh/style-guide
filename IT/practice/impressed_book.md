@@ -1,7 +1,7 @@
 # impressed book (최신순)
 - Tidy First
   - Kent Beck, 2024
-- Get Your Hands in the English language under the title
+- Get Your Hands Dirty on Clean Architecture
   - Tom Homberg, 2019
 - Software Engineering at Google
   - Titus Winters 외 2명, 2020
